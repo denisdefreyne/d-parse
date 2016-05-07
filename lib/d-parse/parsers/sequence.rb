@@ -1,6 +1,8 @@
 module DParse
   module Parsers
     class Sequence < DParse::Parser
+      attr_reader :parsers
+
       def initialize(*parsers)
         @parsers = parsers
       end
@@ -14,6 +16,10 @@ module DParse
             res
           end
         end
+      end
+
+      def >>(other)
+        DParse::Parsers::Sequence.new(*parsers, other)
       end
 
       def inspect

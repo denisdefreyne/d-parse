@@ -21,6 +21,7 @@ module DParse
     end
 
     def >>(other)
+      # NOTE: overridden in Sequence
       DParse::Parsers::Sequence.new(self, other)
     end
 
