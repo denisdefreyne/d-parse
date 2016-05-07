@@ -1,0 +1,54 @@
+# ----- CONFIGURED -----
+
+FileName:
+  Exclude:
+    - 'lib/d-parse.rb'
+
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: consistent_comma
+
+
+
+# ----- DISABLED (opinionated) -----
+
+AsciiComments:
+  Enabled: false
+
+Documentation:
+  Enabled: false
+
+Style/RaiseArgs:
+  Enabled: false
+
+
+
+# ----- DISABLED (metrics) -----
+
+# Cops for metrics are disabled because they should not cause tests to fail.
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/BlockNesting:
+  Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/LineLength:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/ModuleLength:
+  Enabled: false
+
+Metrics/ParameterLists:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false

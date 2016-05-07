@@ -1,0 +1,142 @@
+#!/usr/bin/env ruby
+
+require 'd-parse'
+
+Position = DParse::Position
+Nothing  = DParse::Nothing
+NOTHING  = DParse::NOTHING
+Success  = DParse::Success
+Failure  = DParse::Failure
+Parser   = DParse::Parser
+
+AnyParser         = DParse::Parsers::Any
+CapturingParser   = DParse::Parsers::Capturing
+CharParser        = DParse::Parsers::Char
+EndOfInputParser  = DParse::Parsers::EndOfInput
+IntersperseParser = DParse::Parsers::Intersperse
+NotCharParser     = DParse::Parsers::NotChar
+NotCharsParser    = DParse::Parsers::NotChars
+OrParser          = DParse::Parsers::Or
+RepeatParser      = DParse::Parsers::Repeat
+SequenceParser    = DParse::Parsers::Sequence
+StringParser      = DParse::Parsers::String
+
+#############################################################################
+
+class LazyParser < DParse::Parser
+  def initialize(&block)
+    raise ArgumentError, 'Expected block' unless block_given?
+    @block = block
+  end
+
+  def read(input, pos)
+    @block.call.read(input, pos)
+  end
+
+  def inspect
+    'lazy(?)'
+  end
+end
+
+class WhitespaceParser < DParse::Parser
+  WS = [' ', "\t"].freeze
+
+  def read(input, pos)
+    loop do
+      break unless WS.include?(input[pos.index])
+      pos = pos.advance
+    end
+
+    Success.new(pos)
+  end
+end
+
+#############################################################################
+
+digit_parser =
+  OrParser.new(
+    CharParser.new('0'),
+    CharParser.new('1'),
+    CharParser.new('2'),
+    CharParser.new('3'),
+    CharParser.new('4'),
+    CharParser.new('5'),
+    CharParser.new('6'),
+    CharParser.new('7'),
+    CharParser.new('8'),
+  )
+
+identifier_char_parser =
+  OrParser.new(
+    *(('a'..'z').map { |c| CharParser.new(c) }),
+  )
+
+identifier_parser =
+  CapturingParser.new(
+    SequenceParser.new(
+      identifier_char_parser,
+      RepeatParser.new(
+        identifier_char_parser,
+      ),
+    ),
+  )
+
+lit_parser =
+  CapturingParser.new(
+    SequenceParser.new(
+      digit_parser,
+      RepeatParser.new(
+        digit_parser,
+      ),
+    ),
+  ).map { |d| d.to_i(10) }
+
+funcall_parser = nil
+
+expression_parser =
+  OrParser.new(
+    LazyParser.new { funcall_parser },
+    lit_parser,
+  )
+
+funcall_parser =
+  SequenceParser.new(
+    identifier_parser,
+    CharParser.new('('),
+    expression_parser,
+    RepeatParser.new(
+      SequenceParser.new(
+        CharParser.new(','),
+        WhitespaceParser.new,
+        expression_parser,
+      ).map { |d| d[0] },
+    ).map { |d| d.equal?(NOTHING) ? NOTHING : d[0] },
+    CharParser.new(')'),
+  )
+
+##############################
+
+def eval_expr(expr)
+  case expr
+  when Array
+    case expr[0]
+    when 'add'
+      eval_expr(expr[1]) + eval_expr(expr[2])
+    when 'mul'
+      eval_expr(expr[1]) * eval_expr(expr[2])
+    else
+      raise '???'
+    end
+  when Integer
+    expr
+  else
+    raise '???'
+  end
+end
+
+expr = parse_from_argv(expression_parser)
+
+require 'pp'
+pp expr
+
+p eval_expr(expr)
