@@ -40,5 +40,9 @@ module DParse
     def capture
       DParse::Parsers::Capturing.new(self)
     end
+
+    def named(name)
+      DParse::Parsers::Name.new(self, name)
+    end
   end
 end

@@ -4,12 +4,12 @@ require 'd-parse'
 require 'd-parse/dsl'
 require 'pp'
 
-digit = chars(*('0'..'9'))
+digit = chars(*('0'..'9')).named('digit')
 identifier_char = chars(*('a'..'z'))
-identifier = (identifier_char >> identifier_char.repeat).capture
+identifier = (identifier_char >> identifier_char.repeat).capture.named('identifier')
 lit = (digit >> digit.repeat).capture.map { |d| d.to_i(10) }
 funcall = nil
-expression = lazy { funcall } | lit
+expression = (lazy { funcall } | lit).named('expression')
 lparen = char('(')
 rparen = char(')')
 comma = char(',')
