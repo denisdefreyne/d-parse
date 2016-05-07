@@ -1,68 +1,21 @@
 #!/usr/bin/env ruby
 
 require 'd-parse'
+require 'd-parse/dsl'
 
-Position = DParse::Position
-Nothing  = DParse::Nothing
-NOTHING  = DParse::NOTHING
-Success  = DParse::Success
-Failure  = DParse::Failure
-Parser   = DParse::Parser
+digit = chars(*('0'..'9')).capture
+letter = chars(*('a'..'z')).capture
 
-AnyParser         = DParse::Parsers::Any
-CapturingParser   = DParse::Parsers::Capturing
-CharParser        = DParse::Parsers::Char
-EndOfInputParser  = DParse::Parsers::EndOfInput
-IntersperseParser = DParse::Parsers::Intersperse
-LazyParser        = DParse::Parsers::Lazy
-NotCharParser     = DParse::Parsers::NotChar
-NotCharsParser    = DParse::Parsers::NotChars
-OrParser          = DParse::Parsers::Or
-RepeatParser      = DParse::Parsers::Repeat
-SequenceParser    = DParse::Parsers::Sequence
-StringParser      = DParse::Parsers::String
-WhitespaceParser  = DParse::Parsers::Whitespace
+init = (char('d') | char('l')).capture
 
-#############################################################################
-
-digit_parser =
-  CapturingParser.new(
-    OrParser.new(
-      CharParser.new('0'),
-      CharParser.new('1'),
-      CharParser.new('2'),
-      CharParser.new('3'),
-      CharParser.new('4'),
-      CharParser.new('5'),
-      CharParser.new('6'),
-      CharParser.new('7'),
-      CharParser.new('8'),
-    ),
-  )
-
-letter_parser =
-  CapturingParser.new(
-    OrParser.new(
-      *(('a'..'z').map { |c| CharParser.new(c) }),
-    ),
-  )
-
-init_parser =
-  CapturingParser.new(
-    OrParser.new(
-      CharParser.new('d'), # digit
-      CharParser.new('l'), # letter
-    ),
-  )
-
-pair_parser =
-  init_parser.bind do |data|
+pair =
+  init.bind do |data|
     new_parser =
       case data
       when 'd'
-        digit_parser
+        digit
       when 'l'
-        letter_parser
+        letter
       else
         raise '???'
       end
@@ -70,6 +23,6 @@ pair_parser =
     new_parser.map { |d| [data, d] }
   end
 
-parser = RepeatParser.new(pair_parser)
+parser = pair.repeat
 
 main(parser)
