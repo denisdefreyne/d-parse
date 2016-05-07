@@ -4,6 +4,14 @@ module DParse
       raise NotImplementedError
     end
 
+    def inspect
+      raise NotImplementedError
+    end
+
+    def to_s
+      inspect
+    end
+
     def map(&block)
       DParse::Parsers::Map.new(self, &block)
     end
@@ -12,12 +20,20 @@ module DParse
       DParse::Parsers::Bind.new(self, &block)
     end
 
-    def inspect
-      raise NotImplementedError
+    def >>(other)
+      DParse::Parsers::Sequence.new(self, other)
     end
 
-    def to_s
-      inspect
+    def |(other)
+      DParse::Parsers::Or.new(self, other)
+    end
+
+    def repeat
+      DParse::Parsers::Repeat.new(self)
+    end
+
+    def capture
+      DParse::Parsers::Capturing.new(self)
     end
   end
 end

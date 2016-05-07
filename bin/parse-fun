@@ -27,15 +27,7 @@ WhitespaceParser  = DParse::Parsers::Whitespace
 
 digit_parser =
   OrParser.new(
-    CharParser.new('0'),
-    CharParser.new('1'),
-    CharParser.new('2'),
-    CharParser.new('3'),
-    CharParser.new('4'),
-    CharParser.new('5'),
-    CharParser.new('6'),
-    CharParser.new('7'),
-    CharParser.new('8'),
+    *(('0'..'9').map { |c| CharParser.new(c) }),
   )
 
 identifier_char_parser =
@@ -44,32 +36,15 @@ identifier_char_parser =
   )
 
 identifier_parser =
-  CapturingParser.new(
-    SequenceParser.new(
-      identifier_char_parser,
-      RepeatParser.new(
-        identifier_char_parser,
-      ),
-    ),
-  )
+  (identifier_char_parser >> identifier_char_parser.repeat).capture
 
 lit_parser =
-  CapturingParser.new(
-    SequenceParser.new(
-      digit_parser,
-      RepeatParser.new(
-        digit_parser,
-      ),
-    ),
-  ).map { |d| d.to_i(10) }
+  (digit_parser >> digit_parser.repeat).capture.map { |d| d.to_i(10) }
 
 funcall_parser = nil
 
 expression_parser =
-  OrParser.new(
-    LazyParser.new { funcall_parser },
-    lit_parser,
-  )
+  LazyParser.new { funcall_parser } | lit_parser
 
 funcall_parser =
   SequenceParser.new(
@@ -81,10 +56,10 @@ funcall_parser =
         CharParser.new(','),
         WhitespaceParser.new,
         expression_parser,
-      ).map { |d| d[0] },
-    ).map { |d| d.equal?(NOTHING) ? NOTHING : d[0] },
+      ).map { |d| d[2] },
+    ),
     CharParser.new(')'),
-  )
+  ).map { |d| [d[0], d[2]] + d[3] }
 
 ##############################
 
