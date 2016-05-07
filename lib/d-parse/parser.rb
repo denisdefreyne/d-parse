@@ -33,6 +33,10 @@ module DParse
       DParse::Parsers::Repeat.new(self)
     end
 
+    def optional
+      DParse::Parsers::Optional.new(self)
+    end
+
     def capture
       DParse::Parsers::Capturing.new(self)
     end
