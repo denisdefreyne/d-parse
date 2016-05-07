@@ -14,42 +14,14 @@ CapturingParser   = DParse::Parsers::Capturing
 CharParser        = DParse::Parsers::Char
 EndOfInputParser  = DParse::Parsers::EndOfInput
 IntersperseParser = DParse::Parsers::Intersperse
+LazyParser        = DParse::Parsers::Lazy
 NotCharParser     = DParse::Parsers::NotChar
 NotCharsParser    = DParse::Parsers::NotChars
 OrParser          = DParse::Parsers::Or
 RepeatParser      = DParse::Parsers::Repeat
 SequenceParser    = DParse::Parsers::Sequence
 StringParser      = DParse::Parsers::String
-
-#############################################################################
-
-class LazyParser < DParse::Parser
-  def initialize(&block)
-    raise ArgumentError, 'Expected block' unless block_given?
-    @block = block
-  end
-
-  def read(input, pos)
-    @block.call.read(input, pos)
-  end
-
-  def inspect
-    'lazy(?)'
-  end
-end
-
-class WhitespaceParser < DParse::Parser
-  WS = [' ', "\t"].freeze
-
-  def read(input, pos)
-    loop do
-      break unless WS.include?(input[pos.index])
-      pos = pos.advance
-    end
-
-    Success.new(pos)
-  end
-end
+WhitespaceParser  = DParse::Parsers::Whitespace
 
 #############################################################################
 
