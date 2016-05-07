@@ -8,7 +8,7 @@ module DParse
       end
 
       def read(input, pos)
-        @parsers.reduce(Success.new(pos)) do |res, parser|
+        @parsers.reduce(Success.new(pos, data: [])) do |res, parser|
           case res
           when Success
             parser.read(input, res.pos).map { |d| res.data + [d] }

@@ -6,7 +6,7 @@ module DParse
       end
 
       def read(input, pos)
-        prev_res = Success.new(pos)
+        prev_res = Success.new(pos, data: [])
         loop do
           new_res = @parser.read(input, prev_res.pos)
 

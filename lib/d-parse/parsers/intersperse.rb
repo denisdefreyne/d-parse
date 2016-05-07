@@ -5,7 +5,7 @@ module DParse
         (
           a >>
           (b >> a).repeat.flatten
-        ).map { |d| d[1].equal?(DParse::NOTHING) ? [d[0]] : ([d[0]] + d[1]) }
+        ).map { |d| [d[0]] + d[1] }
       end
 
       def initialize(*_args)

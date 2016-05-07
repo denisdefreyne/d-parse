@@ -3,7 +3,7 @@ module DParse
     attr_reader :pos
     attr_reader :data
 
-    def initialize(pos, data: NOTHING)
+    def initialize(pos, data: nil)
       @pos = pos
       @data = data
     end
