@@ -5,7 +5,11 @@ module DParse
     end
 
     def map(&block)
-      DParse::Parsers::Mapped.new(self, &block)
+      DParse::Parsers::Map.new(self, &block)
+    end
+
+    def bind(&block)
+      DParse::Parsers::Bind.new(self, &block)
     end
 
     def inspect

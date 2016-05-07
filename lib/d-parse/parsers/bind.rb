@@ -1,6 +1,6 @@
 module DParse
   module Parsers
-    class Mapped < DParse::Parser
+    class Bind < DParse::Parser
       def initialize(parser, &block)
         @parser = parser
         @block = block
@@ -10,14 +10,15 @@ module DParse
         res = @parser.read(input, pos)
         case res
         when Success
-          Success.new(res.pos, data: @block.call(res.data))
+          other_parser = @block.call(res.data)
+          other_parser.read(input, res.pos)
         when Failure
           res
         end
       end
 
       def inspect
-        "map(#{@parser}, <proc>)"
+        "bind(#{@parser}, <proc>)"
       end
     end
   end
