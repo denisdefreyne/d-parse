@@ -14,7 +14,7 @@ module DParse
 
           case new_res
           when Success
-            prev_res = new_res.map { |d| d.equal?(NOTHING) ? prev_res.data : prev_res.data + [d] }
+            prev_res = new_res.map { |d| prev_res.data + [d] }
           else
             return prev_res
           end

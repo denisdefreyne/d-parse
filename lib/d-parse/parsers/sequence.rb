@@ -9,7 +9,7 @@ module DParse
         @parsers.reduce(Success.new(pos)) do |res, parser|
           case res
           when Success
-            parser.read(input, res.pos).map { |d| d.equal?(NOTHING) ? res.data : res.data + [d] }
+            parser.read(input, res.pos).map { |d| res.data + [d] }
           when Failure
             res
           end
