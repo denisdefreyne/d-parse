@@ -12,6 +12,7 @@ Parser   = DParse::Parser
 AnyParser         = DParse::Parsers::Any
 CapturingParser   = DParse::Parsers::Capturing
 CharParser        = DParse::Parsers::Char
+CharsParser       = DParse::Parsers::Chars
 EndOfInputParser  = DParse::Parsers::EndOfInput
 IntersperseParser = DParse::Parsers::Intersperse
 LazyParser        = DParse::Parsers::Lazy
@@ -26,14 +27,10 @@ WhitespaceParser  = DParse::Parsers::Whitespace
 #############################################################################
 
 digit =
-  OrParser.new(
-    *(('0'..'9').map { |c| CharParser.new(c) }),
-  )
+  CharsParser.new(*('0'..'9'))
 
 identifier_char =
-  OrParser.new(
-    *(('a'..'z').map { |c| CharParser.new(c) }),
-  )
+  CharsParser.new(*('a'..'z'))
 
 identifier =
   (identifier_char >> identifier_char.repeat).capture
