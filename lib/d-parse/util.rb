@@ -10,7 +10,7 @@ def parse_from_argv(parser)
   end
 
   string = File.read(ARGV[0])
-  parser.read(string, Position.new).data
+  parser.read(string, DParse::Position.new).data
 end
 
 def main(parser)

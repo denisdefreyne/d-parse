@@ -1,30 +1,13 @@
 #!/usr/bin/env ruby
 
 require 'd-parse'
+require 'pp'
 
-Position = DParse::Position
-Nothing  = DParse::Nothing
-NOTHING  = DParse::NOTHING
-Success  = DParse::Success
-Failure  = DParse::Failure
-Parser   = DParse::Parser
-
-AnyParser         = DParse::Parsers::Any
-CapturingParser   = DParse::Parsers::Capturing
 CharParser        = DParse::Parsers::Char
 CharsParser       = DParse::Parsers::Chars
 EndOfInputParser  = DParse::Parsers::EndOfInput
-IntersperseParser = DParse::Parsers::Intersperse
 LazyParser        = DParse::Parsers::Lazy
-NotCharParser     = DParse::Parsers::NotChar
-NotCharsParser    = DParse::Parsers::NotChars
-OrParser          = DParse::Parsers::Or
-RepeatParser      = DParse::Parsers::Repeat
-SequenceParser    = DParse::Parsers::Sequence
-StringParser      = DParse::Parsers::String
 WhitespaceParser  = DParse::Parsers::Whitespace
-
-#############################################################################
 
 digit =
   CharsParser.new(*('0'..'9'))
@@ -56,6 +39,11 @@ arglist =
 funcall =
   (identifier >> lparen >> arglist >> rparen).map { |d| [d[0]] + d[2] }
 
+eof =
+  (CharParser.new("\n") >> EndOfInputParser.new) | EndOfInputParser.new
+
+program = (expression >> eof).map { |d| d[0] }
+
 ##############################
 
 def eval_expr(expr)
@@ -76,9 +64,6 @@ def eval_expr(expr)
   end
 end
 
-expr = parse_from_argv(expression)
-
-require 'pp'
+expr = parse_from_argv(program)
 pp expr
-
 p eval_expr(expr)
