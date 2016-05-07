@@ -25,41 +25,39 @@ WhitespaceParser  = DParse::Parsers::Whitespace
 
 #############################################################################
 
-digit_parser =
+digit =
   OrParser.new(
     *(('0'..'9').map { |c| CharParser.new(c) }),
   )
 
-identifier_char_parser =
+identifier_char =
   OrParser.new(
     *(('a'..'z').map { |c| CharParser.new(c) }),
   )
 
-identifier_parser =
-  (identifier_char_parser >> identifier_char_parser.repeat).capture
+identifier =
+  (identifier_char >> identifier_char.repeat).capture
 
-lit_parser =
-  (digit_parser >> digit_parser.repeat).capture.map { |d| d.to_i(10) }
+lit =
+  (digit >> digit.repeat).capture.map { |d| d.to_i(10) }
 
-funcall_parser = nil
+funcall = nil
 
-expression_parser =
-  LazyParser.new { funcall_parser } | lit_parser
+expression =
+  LazyParser.new { funcall } | lit
 
-funcall_parser =
-  (
-    identifier_parser >>
-    CharParser.new('(') >>
-    expression_parser >>
-    RepeatParser.new(
-      SequenceParser.new(
-        CharParser.new(','),
-        WhitespaceParser.new,
-        expression_parser,
-      ).map { |d| d[2] },
-    ) >>
-    CharParser.new(')')
-  ).map { |d| [d[0], d[2]] + d[3] }
+lparen = CharParser.new('(')
+rparen = CharParser.new(')')
+comma = CharParser.new(',')
+
+arglist_tail =
+  (comma >> WhitespaceParser.new >> expression).map { |d| d[2] }.repeat
+
+arglist =
+  (expression >> arglist_tail).map { |d| [d[0]] + d[1] }
+
+funcall =
+  (identifier >> lparen >> arglist >> rparen).map { |d| [d[0]] + d[2] }
 
 ##############################
 
@@ -81,7 +79,7 @@ def eval_expr(expr)
   end
 end
 
-expr = parse_from_argv(expression_parser)
+expr = parse_from_argv(expression)
 
 require 'pp'
 pp expr
