@@ -14,6 +14,10 @@ module DParse
           Success.new(pos)
         end
       end
+
+      def inspect
+        "optional(#{@parser})"
+      end
     end
   end
 end
