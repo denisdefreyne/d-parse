@@ -1,24 +1,14 @@
 module DParse
   module Parsers
     class Chars < DParse::Parser
-      def initialize(*chars)
-        unless chars.all? { |char| char.length == 1 }
-          raise ArgumentError, 'Expected input to have one char'
-        end
-
-        @chars = chars
+      def self.new(*chars)
+        chars
+          .map { |c| DParse::Parsers::Char.new(c) }
+          .reduce { |a, e| DParse::Parsers::Or.new(a, e) }
       end
 
-      def read(input, pos)
-        if input[pos.index] && @chars.any? { |char| input[pos.index] == char }
-          Success.new(pos.advance)
-        else
-          Failure.new(pos)
-        end
-      end
-
-      def inspect
-        "chars(#{@char.inspect})"
+      def initialize
+        raise ArgumentError, "#{self.class} is not supposed to be initialized"
       end
     end
   end
