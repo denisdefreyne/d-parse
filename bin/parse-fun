@@ -17,7 +17,7 @@ arglist_tail = (comma >> whitespace >> expression).map { |d| d[2] }.repeat
 arglist = (expression >> arglist_tail).map { |d| [d[0]] + d[1] }
 funcall = (identifier >> lparen >> arglist >> rparen).map { |d| [d[0]] + d[2] }
 eof = char("\n").optional >> end_of_input
-program = (expression.intersperse(char("\n")).select_even >> eof).map { |d| d[0] }
+program = (expression.intersperse(char("\n")).select_even >> eof).first
 
 def eval_expr(expr)
   case expr
