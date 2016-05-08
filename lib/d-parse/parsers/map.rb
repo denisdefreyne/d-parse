@@ -10,7 +10,7 @@ module DParse
         res = @parser.read(input, pos)
         case res
         when Success
-          Success.new(res.pos, data: @block.call(res.data, input, res.pos, pos))
+          Success.new(input, res.pos, data: @block.call(res.data, res, pos))
         when Failure
           res
         end

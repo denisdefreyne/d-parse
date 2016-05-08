@@ -10,7 +10,7 @@ module DParse
           .lazy
           .map { |parser| parser.read(input, pos) }
           .select { |res| res.is_a?(Success) }
-          .first || Failure.new(pos)
+          .first || Failure.new(input, pos)
       end
 
       def inspect

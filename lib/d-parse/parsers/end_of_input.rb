@@ -3,9 +3,9 @@ module DParse
     class EndOfInput < DParse::Parser
       def read(input, pos)
         if input.size == pos.index
-          Success.new(pos)
+          Success.new(input, pos)
         else
-          Failure.new(pos)
+          Failure.new(input, pos)
         end
       end
 

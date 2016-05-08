@@ -7,9 +7,9 @@ module DParse
 
       def read(input, pos)
         if input[pos.index, @string.length] == @string
-          Success.new(pos.advance(@string.length))
+          Success.new(input, pos.advance(@string.length))
         else
-          Failure.new(pos)
+          Failure.new(input, pos)
         end
       end
 

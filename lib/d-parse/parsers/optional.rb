@@ -11,7 +11,7 @@ module DParse
         when Success
           res
         when Failure
-          Success.new(pos)
+          Success.new(input, pos)
         end
       end
 

@@ -3,9 +3,9 @@ module DParse
     class Any < DParse::Parser
       def read(input, pos)
         if input[pos.index]
-          Success.new(pos.advance)
+          Success.new(input, pos.advance)
         else
-          Failure.new(pos)
+          Failure.new(input, pos)
         end
       end
 

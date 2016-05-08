@@ -9,7 +9,7 @@ module DParse
           pos = pos.advance
         end
 
-        Success.new(pos)
+        Success.new(input, pos)
       end
     end
   end
