@@ -1,4 +1,7 @@
 require 'rspec'
+require 'coveralls'
+
+Coveralls.wear!
 
 require 'd-parse'
 
@@ -31,7 +34,7 @@ RSpec::Matchers.define :parse do |text|
     s << "up to position #{@new_pos} (rather than #{res.pos.index})" if @new_pos && @new_pos != res.pos.index
     s << "and capture #{@capture.inspect} (rather than #{res.data.inspect})" if @capture && @capture != res.data
 
-    "expected that #{actual} would #{s.join(' ')}"
+    "expected #{actual} to #{s.join(' ')}"
   end
 
   chain :up_to, :new_pos
