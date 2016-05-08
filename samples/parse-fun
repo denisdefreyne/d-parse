@@ -5,8 +5,8 @@ require 'd-parse/dsl'
 require 'pp'
 
 # primitives
-digit = chars(*('0'..'9')).named('digit')
-letter = chars(*('a'..'z'))
+digit = ('0'..'9').map { |c| char(c) }.reduce(:|)
+letter = ('a'..'z').map { |c| char(c) }.reduce(:|)
 lparen = char('(')
 rparen = char(')')
 comma = char(',')

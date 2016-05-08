@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+
+require 'd-parse'
+require 'd-parse/dsl'
+require 'pp'
+
+field = not_chars(',', "\n").repeat.capture
+line = field.intersperse(char(',')).select_even
+file = (line.intersperse(char("\n")).select_even >> end_of_input).first
+
+exprs = parse_from_argv(file)
+pp exprs

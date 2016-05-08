@@ -1,0 +1,44 @@
+#!/usr/bin/env ruby
+
+require 'd-parse'
+require 'd-parse/dsl'
+
+keyword = (string('SELECT') | string('DELETE')).capture
+
+letter = chars(*('a'..'z'))
+identifier = (letter >> letter.repeat).capture.named('identifier')
+
+whitespace = chars(' ', "\t")
+
+def group(parser)
+  parser.map(&:itself)
+end
+
+def repeat1(parser)
+  group(parser >> parser.repeat)
+end
+
+sql_select = (repeat1(whitespace) >> string('* FROM') >> repeat1(whitespace) >> identifier.capture).map { |d| d[3] }
+sql_delete = (repeat1(whitespace) >> string('FROM') >> repeat1(whitespace) >> identifier.capture).map { |d| d[3] }
+
+expression =
+  keyword.bind do |data|
+    new_parser =
+      case data
+      when 'SELECT'
+        sql_select
+      when 'DELETE'
+        sql_delete
+      else
+        raise '???'
+      end
+
+    new_parser.map { |d| [data, d] }
+  end
+
+line = (expression >> char(';')).first
+eof = char("\n").optional >> end_of_input
+program = (line.intersperse(char("\n")).select_even >> eof).first
+
+exprs = parse_from_argv(program)
+exprs.each { |expr| p expr }

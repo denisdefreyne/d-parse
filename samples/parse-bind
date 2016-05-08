@@ -8,18 +8,14 @@ letter = chars(*('a'..'z')).capture
 
 init = (char('d') | char('l')).capture
 
+parser_map = {
+  'd' => digit,
+  'l' => letter,
+}
+
 pair =
   init.bind do |data|
-    new_parser =
-      case data
-      when 'd'
-        digit
-      when 'l'
-        letter
-      else
-        raise '???'
-      end
-
+    new_parser = parser_map[data]
     new_parser.map { |d| [data, d] }
   end
 
