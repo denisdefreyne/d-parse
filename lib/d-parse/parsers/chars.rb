@@ -7,7 +7,7 @@ module DParse
           .reduce { |a, e| DParse::Parsers::Or.new(a, e) }
       end
 
-      def initialize(*_args)
+      def initialize(*)
         raise ArgumentError, "#{self.class} is not supposed to be initialized"
       end
     end
