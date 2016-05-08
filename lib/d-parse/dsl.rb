@@ -28,8 +28,8 @@ module DParse
       DParse::Parsers::Lazy.new(&block)
     end
 
-    def whitespace
-      DParse::Parsers::Whitespace.new
+    def whitespace_char
+      DParse::Parsers::WhitespaceChar.new
     end
   end
 end

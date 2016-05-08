@@ -15,6 +15,7 @@ comma = char(',')
 identifier = (letter >> letter.repeat).capture.named('identifier')
 lit = (digit >> digit.repeat).capture.map { |d| d.to_i(10) }
 eof = char("\n").optional >> end_of_input
+whitespace = whitespace_char.repeat
 
 # complex
 funcall = nil
