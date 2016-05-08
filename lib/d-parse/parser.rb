@@ -68,5 +68,9 @@ module DParse
     def named(name)
       DParse::Parsers::Name.new(self, name)
     end
+
+    def group
+      DParse::Parsers::Group.new(self)
+    end
   end
 end

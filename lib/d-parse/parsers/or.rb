@@ -6,15 +6,11 @@ module DParse
       end
 
       def read(input, pos)
-        @parsers.each do |parser|
-          res = parser.read(input, pos)
-          case res
-          when Success
-            return res
-          when Failure
-          end
-        end
-        Failure.new(pos)
+        @parsers
+          .lazy
+          .map { |parser| parser.read(input, pos) }
+          .select { |res| res.is_a?(Success) }
+          .first || Failure.new(pos)
       end
 
       def inspect

@@ -8,6 +8,18 @@ module DParse
       DParse::Parsers::Chars.new(*cs)
     end
 
+    def not_char(c)
+      DParse::Parsers::NotChar.new(c)
+    end
+
+    def not_chars(*cs)
+      DParse::Parsers::NotChars.new(*cs)
+    end
+
+    def string(s)
+      DParse::Parsers::String.new(s)
+    end
+
     def end_of_input
       DParse::Parsers::EndOfInput.new
     end

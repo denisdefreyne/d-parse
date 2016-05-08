@@ -3,8 +3,8 @@ module DParse
     class Intersperse < DParse::Parser
       def self.new(a, b)
         (
-          a >>
-          (b >> a).repeat.flatten
+          a.group >>
+          (b >> a).repeat.flatten.map { |d| d || [] }
         ).map { |d| [d[0]] + d[1] }
       end
 
