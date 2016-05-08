@@ -7,6 +7,8 @@ FileName:
 Style/TrailingCommaInArguments:
   EnforcedStyleForMultiline: consistent_comma
 
+Style/TrailingCommaInLiteral:
+  EnforcedStyleForMultiline: consistent_comma
 
 
 # ----- DISABLED (opinionated) -----
