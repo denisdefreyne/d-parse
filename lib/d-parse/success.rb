@@ -18,6 +18,10 @@ module DParse
       "Success(#{@pos}; #{@data})"
     end
 
+    def success?
+      true
+    end
+
     def inspect
       to_s
     end

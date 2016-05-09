@@ -14,8 +14,16 @@ module DParse
       self
     end
 
+    def full_message
+      "#{@message} at line #{@pos.line + 1}, column #{@pos.column + 1}"
+    end
+
     def to_s
       "Failure(#{@pos}; #{@message})"
+    end
+
+    def success?
+      false
     end
 
     def inspect
