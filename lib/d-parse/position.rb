@@ -1,6 +1,8 @@
 module DParse
   class Position
     attr_reader :index
+    attr_reader :line
+    attr_reader :column
 
     def initialize(index: 0, line: 0, column: 0)
       @index = index
