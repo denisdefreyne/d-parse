@@ -64,5 +64,11 @@ module DParse
     def named(name)
       DParse::Parsers::Name.new(self, name)
     end
+
+    private
+
+    def display(char)
+      char ? char.inspect.gsub(/^"|"$/, '\'') : 'end of input'
+    end
   end
 end

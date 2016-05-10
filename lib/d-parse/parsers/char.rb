@@ -17,12 +17,6 @@ module DParse
       def inspect
         "char(#{@char.inspect})"
       end
-
-      private
-
-      def display(char)
-        char ? char.inspect.gsub(/^"|"$/, '\'') : 'end of input'
-      end
     end
   end
 end

@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+require 'd-parse'
+require 'd-parse/dsl'
+require 'pp'
+
+parser = seq(char('a').repeat, end_of_input)
+
+puts parser.apply('aaab').pretty_message
