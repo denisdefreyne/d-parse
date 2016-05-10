@@ -1,5 +1,10 @@
 module DParse
   class Parser
+    def apply(input)
+      # FIXME: convert input to chars first
+      read(input, DParse::Position.new)
+    end
+
     def read(_input, _pos)
       raise NotImplementedError
     end
