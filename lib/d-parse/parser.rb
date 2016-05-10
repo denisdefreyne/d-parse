@@ -45,10 +45,6 @@ module DParse
       DParse::Parsers::Bind.new(self, &block)
     end
 
-    def |(other)
-      DParse::Parsers::Or.new(self, other)
-    end
-
     def repeat
       DParse::Parsers::Repeat.new(self)
     end

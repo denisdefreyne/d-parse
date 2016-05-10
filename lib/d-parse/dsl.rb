@@ -20,6 +20,10 @@ module DParse
       DParse::Parsers::Sequence.new(*ps)
     end
 
+    def alt(*ps)
+      DParse::Parsers::Alt.new(*ps)
+    end
+
     def string(s)
       DParse::Parsers::String.new(s)
     end

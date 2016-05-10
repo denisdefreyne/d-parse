@@ -6,7 +6,7 @@ require 'd-parse/dsl'
 digit = chars(*('0'..'9')).capture
 letter = chars(*('a'..'z')).capture
 
-init = (char('d') | char('l')).capture
+init = alt(char('d'), char('l')).capture
 
 parser_map = {
   'd' => digit,

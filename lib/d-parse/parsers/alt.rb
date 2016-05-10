@@ -1,6 +1,6 @@
 module DParse
   module Parsers
-    class Or < DParse::Parser
+    class Alt < DParse::Parser
       def initialize(*parsers)
         @parsers = parsers
       end
@@ -14,7 +14,7 @@ module DParse
       end
 
       def inspect
-        "or(#{@parsers.map(&:inspect).join(',')})"
+        "alt(#{@parsers.map(&:inspect).join(',')})"
       end
     end
   end

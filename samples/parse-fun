@@ -5,8 +5,8 @@ require 'd-parse/dsl'
 require 'pp'
 
 # primitives
-digit = ('0'..'9').map { |c| char(c) }.reduce(:|)
-letter = ('a'..'z').map { |c| char(c) }.reduce(:|)
+digit = alt(*('0'..'9').map { |c| char(c) })
+letter = alt(*('a'..'z').map { |c| char(c) })
 lparen = char('(')
 rparen = char(')')
 comma = char(',')
@@ -19,7 +19,7 @@ whitespace = whitespace_char.repeat
 
 # complex
 funcall = nil
-expression = (lazy { funcall } | lit).named('expression')
+expression = alt(lazy { funcall }, lit).named('expression')
 arglist_tail = seq(comma, whitespace, expression).map { |d| d[2] }.repeat
 arglist = seq(expression, arglist_tail).map { |d| [d[0]] + d[1] }
 funcall = seq(identifier, lparen, arglist, rparen).map { |d| [d[0]] + d[2] }

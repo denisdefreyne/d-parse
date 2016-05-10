@@ -2,7 +2,7 @@ describe DParse::Parsers::Bind do
   let(:a) { DParse::Parsers::Char.new('a') }
   let(:b) { DParse::Parsers::Char.new('b') }
 
-  let(:init) { (a | b).capture }
+  let(:init) { DParse::Parsers::Alt.new(a, b).capture }
 
   let(:parser) do
     parser_map = {

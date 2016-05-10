@@ -4,7 +4,7 @@ module DParse
       def self.new(*chars)
         chars
           .map { |c| DParse::Parsers::Char.new(c) }
-          .reduce { |a, e| DParse::Parsers::Or.new(a, e) }
+          .reduce { |a, e| DParse::Parsers::Alt.new(a, e) }
       end
 
       def initialize(*)
