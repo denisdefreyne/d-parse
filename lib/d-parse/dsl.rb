@@ -16,6 +16,10 @@ module DParse
       DParse::Parsers::NotChars.new(*cs)
     end
 
+    def seq(*ps)
+      DParse::Parsers::Sequence.new(*ps)
+    end
+
     def string(s)
       DParse::Parsers::String.new(s)
     end

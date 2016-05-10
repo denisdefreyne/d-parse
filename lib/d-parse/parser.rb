@@ -45,11 +45,6 @@ module DParse
       DParse::Parsers::Bind.new(self, &block)
     end
 
-    def >>(other)
-      # NOTE: overridden in Sequence
-      DParse::Parsers::Sequence.new(self, other)
-    end
-
     def |(other)
       DParse::Parsers::Or.new(self, other)
     end
@@ -72,10 +67,6 @@ module DParse
 
     def named(name)
       DParse::Parsers::Name.new(self, name)
-    end
-
-    def group
-      DParse::Parsers::Group.new(self)
     end
   end
 end

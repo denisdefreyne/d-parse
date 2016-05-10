@@ -18,10 +18,6 @@ module DParse
         end
       end
 
-      def >>(other)
-        DParse::Parsers::Sequence.new(*parsers, other)
-      end
-
       def inspect
         "seq(#{@parsers.map(&:inspect).join(',')})"
       end

@@ -1,3 +1,0 @@
-SELECT * FROM foo;
-SELECT * FROM bar;
-DELETE FROM foo;
