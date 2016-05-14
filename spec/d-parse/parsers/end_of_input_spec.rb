@@ -3,7 +3,7 @@ describe DParse::Parsers::EOF do
 
   example { expect(parser).to parse('') }
 
-  example { expect(parser).not_to parse('a').with_failure('expected end of input, but found \'a\' at line 1, column 1') }
-  example { expect(parser).not_to parse("\n").with_failure('expected end of input, but found \'\n\' at line 1, column 1') }
-  example { expect(parser).not_to parse('aa').with_failure('expected end of input, but found \'a\' at line 1, column 1') }
+  example { expect(parser).not_to parse('a').and_fail_at(0).line(0).column(0).with_failure('expected end of input, but found \'a\'') }
+  example { expect(parser).not_to parse("\n").and_fail_at(0).line(0).column(0).with_failure('expected end of input, but found \'\n\'') }
+  example { expect(parser).not_to parse('aa').and_fail_at(0).line(0).column(0).with_failure('expected end of input, but found \'a\'') }
 end
