@@ -105,8 +105,9 @@ json_object =
 json_value =
   alt(
     json_string,
-    json_array,
     json_number,
+    json_object,
+    json_array,
     json_true,
     json_false,
     json_null,
