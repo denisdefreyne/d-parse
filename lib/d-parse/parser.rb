@@ -53,10 +53,6 @@ module DParse
       DParse::Parsers::Bind.new(self, &block)
     end
 
-    def opt
-      DParse::Parsers::Opt.new(self)
-    end
-
     def capture
       DParse::Parsers::Capturing.new(self)
     end
