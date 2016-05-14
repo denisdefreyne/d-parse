@@ -12,8 +12,6 @@ _D★Parse_ is a parser combinator library for Ruby.
 
 As mentioned above, this software is in an early state, and still lacks many features. It is not yet a fully functional parser combinator library, but it’ll hopefully get there.
 
-* Handle line breaks in position changes.
-
 * Add more combinators (e.g. `repeat1`).
 
 * Add support for backtracking, so that `seq(repeat(any), string('donkey'))` can parse `superdonkey`.
