@@ -76,7 +76,35 @@ module DParse
     private
 
     def display(char)
-      char ? char.inspect.gsub(/^"|"$/, '\'') : 'end of input'
+      case char
+      when nil
+        'end of input'
+      when "\n"
+        'line break (LF)'
+      when "\r"
+        'line break (CR)'
+      else
+        quote_char =
+          if char == '\''
+            '"'
+          else
+            '\''
+          end
+
+        display_char =
+          case char
+          when '\\'
+            '\\'
+          when '"'
+            '"'
+          when '\''
+            '\''
+          else
+            char.inspect.gsub(/^"|"$/, '')
+          end
+
+        quote_char + display_char + quote_char
+      end
     end
   end
 end
