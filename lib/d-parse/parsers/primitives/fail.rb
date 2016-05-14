@@ -6,7 +6,7 @@ module DParse
       end
 
       def inspect
-        'failure()'
+        'fail()'
       end
     end
   end
