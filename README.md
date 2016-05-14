@@ -90,6 +90,8 @@ As mentioned above, this software is in an early state, and still lacks many fea
 
 * Add documentation.
 
+* Add support for parsing generic token streams, rather than just characters.
+
 ## Commit message conventions
 
 As an experiment, I’m going to use commit message conventions slightly adapted from [Angular.js](https://github.com/angular/angular.js/blob/master/CONTRIBUTING.md)’s.
