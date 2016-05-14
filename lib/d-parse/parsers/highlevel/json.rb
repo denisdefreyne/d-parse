@@ -140,7 +140,7 @@ module DParse
                 char('.').ignore,
                 repeat(json_digit).capture,
               ).compact,
-            ).capture,
+            ),
             opt(
               seq(
                 alt(char('e'), char('E')),
@@ -149,18 +149,26 @@ module DParse
               ).compact,
             ),
           ).map do |d, _, _|
+            sign_char          = d[0]
+            digits_before_dot  = d[1]
+            digits_after_dot   = d[2]
+            sci_data           = d[3]
+
             base =
-              if d[2].empty?
-                d.take(3).join.to_i(10)
+              if digits_after_dot
+                [sign_char, digits_before_dot, '.', digits_after_dot].join('').to_f
               else
-                d.take(3).join.to_f
+                [sign_char, digits_before_dot].join('').to_i(10)
               end
 
             factor =
-              if d[3]
-                unsigned_factor = d[3][1].to_i(10)
+              if sci_data
+                sign_char = sci_data[0]
+                exponent  = sci_data[1]
 
-                case d[3][0]
+                unsigned_factor = exponent.to_i(10)
+
+                case sign_char
                 when '+', ''
                   10**unsigned_factor
                 when '-'
