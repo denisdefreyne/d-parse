@@ -10,6 +10,11 @@ EOS
 
 include DParse::DSL
 
-parser = seq(char('a').repeat, eof)
+parser =
+  alt(
+    string('Hello!'),
+    string('Hello, world!'),
+    string('Hello… ?'),
+  )
 
-puts parser.apply('aaab').pretty_message
+puts parser.apply('Hello, what?').pretty_message
