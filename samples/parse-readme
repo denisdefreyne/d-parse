@@ -15,7 +15,7 @@ parser =
     eof,
   ).first
 
-res = parser.apply("1,2,100,582048,07,09")
+res = parser.apply("1,2,100,58x2048,07,09")
 case res
 when DParse::Success
   p res.data

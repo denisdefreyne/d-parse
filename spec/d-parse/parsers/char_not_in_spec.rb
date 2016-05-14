@@ -6,12 +6,12 @@ describe DParse::Parsers::CharNotIn do
   example { expect(parser).to parse('cb').up_to(1) }
   example { expect(parser).to parse('cab').up_to(1) }
 
-  example { expect(parser).not_to parse('').and_fail_at(0).line(0).column(0).with_failure('expected any character not in \'a\', \'b\', but found end of input') }
-  example { expect(parser).not_to parse('a').and_fail_at(0).line(0).column(0).with_failure('expected any character not in \'a\', \'b\', but found \'a\'') }
-  example { expect(parser).not_to parse('ab').and_fail_at(0).line(0).column(0).with_failure('expected any character not in \'a\', \'b\', but found \'a\'') }
-  example { expect(parser).not_to parse('ac').and_fail_at(0).line(0).column(0).with_failure('expected any character not in \'a\', \'b\', but found \'a\'') }
-  example { expect(parser).not_to parse('b').and_fail_at(0).line(0).column(0).with_failure('expected any character not in \'a\', \'b\', but found \'b\'') }
-  example { expect(parser).not_to parse('ba').and_fail_at(0).line(0).column(0).with_failure('expected any character not in \'a\', \'b\', but found \'b\'') }
-  example { expect(parser).not_to parse('bb').and_fail_at(0).line(0).column(0).with_failure('expected any character not in \'a\', \'b\', but found \'b\'') }
-  example { expect(parser).not_to parse('bc').and_fail_at(0).line(0).column(0).with_failure('expected any character not in \'a\', \'b\', but found \'b\'') }
+  example { expect(parser).not_to parse('').and_fail_at(0).line(0).column(0).with_failure('expected any character not in \'a\', \'b\'') }
+  example { expect(parser).not_to parse('a').and_fail_at(0).line(0).column(0).with_failure('expected any character not in \'a\', \'b\'') }
+  example { expect(parser).not_to parse('ab').and_fail_at(0).line(0).column(0).with_failure('expected any character not in \'a\', \'b\'') }
+  example { expect(parser).not_to parse('ac').and_fail_at(0).line(0).column(0).with_failure('expected any character not in \'a\', \'b\'') }
+  example { expect(parser).not_to parse('b').and_fail_at(0).line(0).column(0).with_failure('expected any character not in \'a\', \'b\'') }
+  example { expect(parser).not_to parse('ba').and_fail_at(0).line(0).column(0).with_failure('expected any character not in \'a\', \'b\'') }
+  example { expect(parser).not_to parse('bb').and_fail_at(0).line(0).column(0).with_failure('expected any character not in \'a\', \'b\'') }
+  example { expect(parser).not_to parse('bc').and_fail_at(0).line(0).column(0).with_failure('expected any character not in \'a\', \'b\'') }
 end

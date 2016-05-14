@@ -5,7 +5,7 @@ module DParse
         if input.size == pos.index
           Success.new(input, pos)
         else
-          Failure.new(input, pos, message: "expected end of input, but found #{display input[pos.index]}")
+          Failure.new(input, pos, message: 'expected end of input')
         end
       end
 

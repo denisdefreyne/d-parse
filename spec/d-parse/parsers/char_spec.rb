@@ -5,8 +5,8 @@ describe DParse::Parsers::Char do
   example { expect(parser).to parse('aa').up_to(1) }
   example { expect(parser).to parse('ab').up_to(1) }
 
-  example { expect(parser).not_to parse('').and_fail_at(0).line(0).column(0).with_failure('expected \'a\', but found end of input') }
-  example { expect(parser).not_to parse('b').and_fail_at(0).line(0).column(0).with_failure('expected \'a\', but found \'b\'') }
+  example { expect(parser).not_to parse('').and_fail_at(0).line(0).column(0).with_failure('expected \'a\'') }
+  example { expect(parser).not_to parse('b').and_fail_at(0).line(0).column(0).with_failure('expected \'a\'') }
 
   context 'newline parser' do
     let(:parser) { described_class.new("\n") }

@@ -6,7 +6,7 @@ module DParse
         if char
           Success.new(input, pos.advance(char))
         else
-          Failure.new(input, pos, message: 'expected any character, but found end of input')
+          Failure.new(input, pos, message: 'expected any character (not end of file)')
         end
       end
 

@@ -11,7 +11,7 @@ module DParse
         if char == @char
           Success.new(input, pos.advance(char))
         else
-          Failure.new(input, pos, message: "expected #{display @char}, but found #{display char}")
+          Failure.new(input, pos, message: "expected #{display @char}")
         end
       end
 
