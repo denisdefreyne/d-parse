@@ -41,7 +41,7 @@ module DParse
     end
 
     def seq(*ps)
-      DParse::Parsers::Sequence.new(*ps)
+      DParse::Parsers::Seq.new(*ps)
     end
 
     def string(s)

@@ -1,6 +1,6 @@
 module DParse
   module Parsers
-    class Sequence < DParse::Parser
+    class Seq < DParse::Parser
       attr_reader :parsers
 
       def initialize(*parsers)

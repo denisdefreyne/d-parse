@@ -9,7 +9,7 @@ require_relative 'parsers/primitives/string'
 require_relative 'parsers/primitives/succeed'
 
 require_relative 'parsers/combinators/alt'
-require_relative 'parsers/combinators/sequence'
+require_relative 'parsers/combinators/seq'
 require_relative 'parsers/combinators/repeat'
 
 require_relative 'parsers/modifiers/capturing'
