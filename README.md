@@ -25,3 +25,35 @@ As mentioned above, this software is in an early state, and still lacks many fea
 * Add tests for everything.
 
 * Add documentation.
+
+## Commit message conventions
+
+As an experiment, I’m going to use commit message conventions slightly adapted from [Angular.js](https://github.com/angular/angular.js/blob/master/CONTRIBUTING.md)’s.
+
+```
+<type>(<scope>): <subject>
+<BLANK LINE>
+<body>
+```
+
+The following types are supported:
+
+* `feat` (new feature)
+* `fix` (bug fix)
+* `docs` (documentation)
+* `style` (formatting, …)
+* `refactor`
+* `test` (adding tests)
+* `chore` (maintenance, such as build infrastructure changes)
+
+The following scopes are supported:
+
+* `core`
+* `parsers`
+* `samples`
+
+The following rules apply to the subject:
+
+* Use the imperative, present tense.
+* Do not capitalize the first letter.
+* Do not end the subject with a period.
