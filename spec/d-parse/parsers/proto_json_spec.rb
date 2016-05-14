@@ -1,5 +1,10 @@
 describe DParse::Parsers::ProtoJSON do
-  let(:parser) { described_class.new }
+  let(:parser) do
+    DParse::Parsers::Seq.new(
+      described_class.new,
+      DParse::Parsers::EOF.new,
+    ).first
+  end
 
   let(:input) do
     '{"name": "Denis", "favourite_animals": ["donkey", "giraffe"], "nothing": null, "yup": true, "nope": false, "one": 1, "zero": 0, "two": 2, "object": {"foo":"bar"} }'
