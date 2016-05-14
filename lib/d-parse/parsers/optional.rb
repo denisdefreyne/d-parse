@@ -1,22 +1,15 @@
 module DParse
   module Parsers
     class Optional < DParse::Parser
-      def initialize(parser)
-        @parser = parser
+      def self.new(parser)
+        DParse::Parsers::Alt.new(
+          parser,
+          DParse::Parsers::Succeed.new,
+        )
       end
 
-      def read(input, pos)
-        res = @parser.read(input, pos)
-        case res
-        when Success
-          res
-        when Failure
-          Success.new(input, pos)
-        end
-      end
-
-      def inspect
-        "optional(#{@parser})"
+      def initialize(*)
+        raise ArgumentError, "#{self.class} is not supposed to be initialized"
       end
     end
   end
