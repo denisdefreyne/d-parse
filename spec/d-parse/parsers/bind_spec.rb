@@ -16,16 +16,16 @@ describe DParse::Parsers::Bind do
     end
   end
 
-  example { expect(parser).to parse('a0').up_to(2) }
-  example { expect(parser).to parse('b1').up_to(2) }
+  example { expect(parser).to parse('a0').up_to(2).line(0).column(2) }
+  example { expect(parser).to parse('b1').up_to(2).line(0).column(2) }
 
-  example { expect(parser).not_to parse('').and_fail_at(0) }
-  example { expect(parser).not_to parse('a').and_fail_at(1) }
-  example { expect(parser).not_to parse('aa').and_fail_at(1) }
-  example { expect(parser).not_to parse('ab').and_fail_at(1) }
-  example { expect(parser).not_to parse('a1').and_fail_at(1) }
-  example { expect(parser).not_to parse('b').and_fail_at(1) }
-  example { expect(parser).not_to parse('ba').and_fail_at(1) }
-  example { expect(parser).not_to parse('bb').and_fail_at(1) }
-  example { expect(parser).not_to parse('b0').and_fail_at(1) }
+  example { expect(parser).not_to parse('').and_fail_at(0).line(0).column(0) }
+  example { expect(parser).not_to parse('a').and_fail_at(1).line(0).column(1) }
+  example { expect(parser).not_to parse('aa').and_fail_at(1).line(0).column(1) }
+  example { expect(parser).not_to parse('ab').and_fail_at(1).line(0).column(1) }
+  example { expect(parser).not_to parse('a1').and_fail_at(1).line(0).column(1) }
+  example { expect(parser).not_to parse('b').and_fail_at(1).line(0).column(1) }
+  example { expect(parser).not_to parse('ba').and_fail_at(1).line(0).column(1) }
+  example { expect(parser).not_to parse('bb').and_fail_at(1).line(0).column(1) }
+  example { expect(parser).not_to parse('b0').and_fail_at(1).line(0).column(1) }
 end

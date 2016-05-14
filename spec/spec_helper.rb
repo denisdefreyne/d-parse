@@ -12,6 +12,8 @@ RSpec::Matchers.define :parse do |text|
     conditions = [
       res.is_a?(DParse::Success),
       -> { (@new_pos.nil? || res.pos.index == @new_pos) },
+      -> { (@line.nil? || res.pos.line == @line) },
+      -> { (@column.nil? || res.pos.column == @column) },
       -> { (@capture.nil? || @capture == res.data) },
     ]
 
@@ -24,6 +26,8 @@ RSpec::Matchers.define :parse do |text|
     conditions = [
       res.is_a?(DParse::Failure),
       -> { (@new_pos.nil? || res.pos.index == @new_pos) },
+      -> { (@line.nil? || res.pos.line == @line) },
+      -> { (@column.nil? || res.pos.column == @column) },
       -> { (@failure_msg.nil? || res.message == @failure_msg) },
     ]
 
@@ -36,11 +40,13 @@ RSpec::Matchers.define :parse do |text|
     s = []
     s << "parse #{expected.inspect}"
     case res
-    when DParse::Success
-      s << "up to position #{@new_pos} (rather than #{res.pos.index})" if @new_pos && @new_pos != res.pos.index
-      s << "and capture #{@capture.inspect} (rather than #{res.data.inspect})" if @capture && @capture != res.data
     when DParse::Failure
       s << "and not fail (rather than fail with #{res.message.inspect})"
+    when DParse::Success
+      s << "up to position #{@new_pos} (rather than #{res.pos.index})" if @new_pos && @new_pos != res.pos.index
+      s << "line #{@line} (rather than #{res.pos.line})" if @line && @line != res.pos.line
+      s << "column #{@column} (rather than #{res.pos.column})" if @column && @column != res.pos.column
+      s << "and capture #{@capture.inspect} (rather than #{res.data.inspect})" if @capture && @capture != res.data
     end
 
     "expected #{actual} to #{s.join(' ')}"
@@ -58,10 +64,12 @@ RSpec::Matchers.define :parse do |text|
       buts = []
       buts << "with #{@failure_msg.inspect} (rather than #{res.message.inspect})" if @failure_msg
       buts << "at #{@new_pos} (rather than #{res.pos.index})" if @new_pos && @new_pos != res.pos.index
+      buts << "line #{@line} (rather than #{res.pos.line})" if @line && @line != res.pos.line
+      buts << "column #{@column} (rather than #{res.pos.column})" if @column && @column != res.pos.column
 
       s <<
         if buts.any?
-          "and fail, but #{buts.join(' and ')}"
+          "and fail, but #{buts.join(', ')}"
         else
           'and fail'
         end
@@ -72,7 +80,11 @@ RSpec::Matchers.define :parse do |text|
 
   chain :up_to, :new_pos
   chain :and_fail_at, :new_pos
+  chain :column, :column
+  chain :line, :line
+
   chain :and_capture, :capture
+
   chain :with_failure, :failure_msg
 
   description do
