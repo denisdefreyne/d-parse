@@ -2,9 +2,7 @@ module DParse
   module Parsers
     class CharIn < DParse::Parser
       def self.new(chars)
-        chars
-          .map { |c| DParse::Parsers::Char.new(c) }
-          .reduce { |a, e| DParse::Parsers::Alt.new(a, e) }
+        DParse::Parsers::Alt.new(*chars.map { |c| DParse::Parsers::Char.new(c) })
       end
 
       def initialize(*)
