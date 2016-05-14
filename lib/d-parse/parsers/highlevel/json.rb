@@ -112,13 +112,13 @@ module DParse
         # Misc
 
         json_true =
-          string('true').map { |_| true }
+          string('true').map { true }
 
         json_false =
-          string('false').map { |_| false }
+          string('false').map { false }
 
         json_null =
-          string('null').map { |_| nil }
+          string('null').map { nil }
 
         # Number
 
