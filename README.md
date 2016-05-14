@@ -70,7 +70,7 @@ Special modifiers:
 
 * `p.capture` sets the data of the parsing result of `p`, if successful, to the data between the start and the end of the match.
 
-* `p.ignore` sets the data of the parsing result of `p`, if successful, to `nil`.
+* `p.ignore` sets the data of the parsing result of `p`, if successful, to `nil`. This is particularly useful in combination with `p.compact`.
 
 * `p.map { |data| … }` sets the data of the parsing result of `p`, if successful, to the return value of the block. The block gets the data of the success as an argument.
 
@@ -82,7 +82,7 @@ Special modifiers:
 
 * `p.select_even` sets the data of the parsing result of `p`, if successful, to each even element of the data of the success. This only works if the success data is an array.
 
-* `p.compact` sets the data of the parsing result of `p`, if successful, to each non-nil element of the data of the success. This only works if the success data is an array.
+* `p.compact` sets the data of the parsing result of `p`, if successful, to each non-nil element of the data of the success. This only works if the success data is an array. This is particularly useful in combination with `p.ignore`.
 
 ## To do
 
