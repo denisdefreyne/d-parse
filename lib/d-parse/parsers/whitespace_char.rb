@@ -4,7 +4,7 @@ module DParse
       WS = [' ', "\t"].freeze
 
       def self.new
-        DParse::Parsers::Chars.new(*WS)
+        DParse::Parsers::CharIn.new(WS)
       end
 
       def initialize(*)

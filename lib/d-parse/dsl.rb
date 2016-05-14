@@ -4,8 +4,8 @@ module DParse
       DParse::Parsers::Char.new(c)
     end
 
-    def chars(*cs)
-      DParse::Parsers::Chars.new(*cs)
+    def char_in(enum)
+      DParse::Parsers::CharIn.new(enum)
     end
 
     def not_char(c)

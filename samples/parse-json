@@ -54,7 +54,7 @@ json_null =
 # Number
 
 json_digit =
-  chars(*'0'..'9')
+  char_in('0'..'9')
 
 # TODO: add floating point support
 # FIXME: #to_i is not going to cut it
@@ -64,7 +64,7 @@ json_number =
     alt(
       char('0'),
       seq(
-        chars(*'1'..'9'),
+        char_in('1'..'9'),
         repeat(json_digit),
       )
     )
