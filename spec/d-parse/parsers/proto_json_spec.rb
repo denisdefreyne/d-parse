@@ -21,6 +21,12 @@ describe DParse::Parsers::ProtoJSON do
 
   example { expect(parser).to parse(input).up_to(163).and_capture(expected_capture) }
 
+  example { expect(parser).to parse('{"a":"b"}').and_capture('a' => 'b') }
+  example { expect(parser).to parse('{ "a" : "b" }').and_capture('a' => 'b') }
+  example { expect(parser).to parse("{\t\"a\"\t:\t\"b\"\t}").and_capture('a' => 'b') }
+  example { expect(parser).to parse("{\r\"a\"\r:\r\"b\"\r}").and_capture('a' => 'b') }
+  example { expect(parser).to parse("{\n\"a\"\n:\n\"b\"\n}").and_capture('a' => 'b') }
+
   example { expect(parser).to parse('{"num":0}').up_to(9).and_capture('num' => 0) }
   example { expect(parser).to parse('{"nu m":0}').up_to(10).and_capture('nu m' => 0) }
   example { expect(parser).to parse('{"nu\"m":0}').up_to(11).and_capture('nu"m' => 0) }

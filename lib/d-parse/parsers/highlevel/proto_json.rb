@@ -7,7 +7,14 @@ module DParse
         json_value = nil # Undefined for now
 
         whitespace =
-          repeat(whitespace_char)
+          repeat(
+            alt(
+              char(' '),
+              char("\t"),
+              char("\r"),
+              char("\n"),
+            ),
+          )
 
         # String
 
