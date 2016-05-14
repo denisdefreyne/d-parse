@@ -53,10 +53,6 @@ module DParse
       DParse::Parsers::Bind.new(self, &block)
     end
 
-    def repeat
-      DParse::Parsers::Repeat.new(self)
-    end
-
     def optional
       DParse::Parsers::Optional.new(self)
     end

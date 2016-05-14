@@ -10,7 +10,7 @@ EOS
 
 include DParse::DSL
 
-field = not_chars(',', "\n").repeat.capture
+field = repeat(not_chars(',', "\n")).capture
 line = field.intersperse(char(',')).select_even
 file = seq(line.intersperse(char("\n")).select_even, eof).first
 

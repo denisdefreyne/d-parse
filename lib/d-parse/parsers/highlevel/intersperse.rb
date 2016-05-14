@@ -4,7 +4,9 @@ module DParse
       def self.new(a, b)
         DParse::Parsers::Seq.new(
           a,
-          DParse::Parsers::Seq.new(b, a).repeat.flatten.map { |d| d || [] },
+          DParse::Parsers::Repeat.new(
+            DParse::Parsers::Seq.new(b, a),
+          ).flatten.map { |d| d || [] },
         ).map { |d| [d[0]] + d[1] }
       end
 

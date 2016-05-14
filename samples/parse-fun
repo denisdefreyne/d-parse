@@ -18,15 +18,15 @@ rparen = char(')')
 comma = char(',')
 
 # basic
-identifier = seq(letter, letter.repeat).capture.named('identifier')
-lit = seq(digit, digit.repeat).capture.map { |d| d.to_i(10) }
+identifier = seq(letter, repeat(letter)).capture.named('identifier')
+lit = seq(digit, repeat(digit)).capture.map { |d| d.to_i(10) }
 eof = seq(char("\n").optional, eof)
-whitespace = whitespace_char.repeat
+whitespace = repeat(whitespace_char)
 
 # complex
 funcall = nil
 expression = alt(lazy { funcall }, lit).named('expression')
-arglist_tail = seq(comma, whitespace, expression).map { |d| d[2] }.repeat
+arglist_tail = repeat(seq(comma, whitespace, expression).map { |d| d[2] })
 arglist = seq(expression, arglist_tail).map { |d| [d[0]] + d[1] }
 funcall = seq(identifier, lparen, arglist, rparen).map { |d| [d[0]] + d[2] }
 program = seq(expression.intersperse(char("\n")).select_even, eof).first

@@ -20,6 +20,6 @@ pair =
     new_parser.map { |d| [data, d] }
   end
 
-parser = pair.repeat
+parser = repeat(pair)
 
 p parser.apply("lad1d2d3lblc")
