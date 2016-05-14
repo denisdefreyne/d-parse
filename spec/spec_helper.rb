@@ -62,8 +62,8 @@ RSpec::Matchers.define :parse do |text|
       s << "and fail (rather than parse up to #{res.pos.inspect})"
     when DParse::Failure
       buts = []
-      buts << "with #{@failure_msg.inspect} (rather than #{res.message.inspect})" if @failure_msg
-      buts << "at #{@new_pos} (rather than #{res.pos.index})" if @new_pos && @new_pos != res.pos.index
+      buts << "with #{@failure_msg.inspect} (rather than #{res.message.inspect})" if @failure_msg && @failure_msg != res.message
+      buts << "at position #{@new_pos} (rather than #{res.pos.index})" if @new_pos && @new_pos != res.pos.index
       buts << "line #{@line} (rather than #{res.pos.line})" if @line && @line != res.pos.line
       buts << "column #{@column} (rather than #{res.pos.column})" if @column && @column != res.pos.column
 
