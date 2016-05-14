@@ -40,29 +40,29 @@ end
 
 ## Parsers
 
-* `alt(p1, p2, …)` attempts to apply any of the given parsers
+* `alt(p1, p2, …)` attempts to apply any of the given parsers.
 
-* `any` parses any character
+* `any` parses any character.
 
-* `char_in(cs)` parses a character that is in the `cs` collection
+* `char_in(cs)` parses a character that is in the `cs` collection.
 
-* `char_not_in(cs)` parses a character that is not in the `cs` collection
+* `char_not_in(cs)` parses a character that is not in the `cs` collection.
 
-* `char_not(c)` parses a character that is not `c`
+* `char_not(c)` parses a character that is not `c`.
 
-* `char(c)` parses the single character `c`
+* `char(c)` parses the single character `c`.
 
-* `eof` parses the end of file
+* `eof` parses the end of file.
 
-* `fail` always fails
+* `fail` always fails.
 
-* `rename_failure(p, message)` sets the failure message of the parsing result of `p`, if it fails, to `message`
+* `rename_failure(p, message)` sets the failure message of the parsing result of `p`, if it fails, to `message`.
 
-* `repeat(p)` tries to apply `p` as many times as possible, and never fails
+* `repeat(p)` tries to apply `p` as many times as possible, and never fails.
 
-* `seq(p1, p2, …)` tries to apply the given parsers in sequence
+* `seq(p1, p2, …)` tries to apply the given parsers in sequence.
 
-* `succeed` always succeeds, without advancing the position
+* `succeed` always succeeds, without advancing the position.
 
 Special modifiers:
 
@@ -70,7 +70,7 @@ Special modifiers:
 
 * `p.capture` sets the data of the parsing result of `p`, if successful, to the data between the start and the end of the match.
 
-* `p.ignore` sets the data of the parsing result of `p`, if successful, to `nil`
+* `p.ignore` sets the data of the parsing result of `p`, if successful, to `nil`.
 
 * `p.map`
 
