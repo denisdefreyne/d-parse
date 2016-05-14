@@ -10,8 +10,8 @@ EOS
 
 include DParse::DSL
 
-field = repeat(not_chars(',', "\n")).capture
-line = field.intersperse(char(',')).select_even
-file = seq(line.intersperse(char("\n")).select_even, eof).first
+field = repeat(char_not_in([',', "\n"])).capture
+line = intersperse(field, char(',')).select_even
+file = seq(intersperse(line, char("\n")).select_even, eof).first
 
 pp file.apply(data)
