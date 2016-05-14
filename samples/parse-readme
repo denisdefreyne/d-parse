@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+
+require 'd-parse'
+
+include DParse::DSL
+
+digit = char_in('0'..'9')
+
+parser =
+  seq(
+    intersperse(
+      repeat(digit).capture.map { |d| d.to_i(10) },
+      char(',').ignore,
+    ).compact,
+    eof,
+  ).first
+
+res = parser.apply("1,2,100,582048,07,09")
+case res
+when DParse::Success
+  p res.data
+when DParse::Failure
+  $stderr.puts res.pretty_message
+  exit 1
+end
