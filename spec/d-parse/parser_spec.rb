@@ -1,4 +1,21 @@
 describe DParse::Parser do
+  context 'bare parser' do
+    let(:klass) do
+      Class.new(described_class) do
+      end
+    end
+
+    let(:parser) { klass.new }
+
+    it 'errors on #read' do
+      expect { parser.read('foo', :some_pos) }.to raise_error(NotImplementedError)
+    end
+
+    it 'errors on #inspect' do
+      expect { parser.inspect }.to raise_error(NotImplementedError)
+    end
+  end
+
   context 'parser returning an array' do
     let(:klass) do
       Class.new(described_class) do
