@@ -1,6 +1,6 @@
 module DParse
   module Parsers
-    class ProtoJSON < DParse::Parser
+    class JSON < DParse::Parser
       def self.new
         extend DParse::DSL
 

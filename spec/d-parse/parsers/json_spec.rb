@@ -1,4 +1,4 @@
-describe DParse::Parsers::ProtoJSON do
+describe DParse::Parsers::JSON do
   let(:parser) do
     DParse::Parsers::Seq.new(
       described_class.new,
