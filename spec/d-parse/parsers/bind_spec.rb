@@ -19,13 +19,13 @@ describe DParse::Parsers::Bind do
   example { expect(parser).to parse('a0').up_to(2) }
   example { expect(parser).to parse('b1').up_to(2) }
 
-  example { expect(parser).not_to parse('') }
-  example { expect(parser).not_to parse('a') }
-  example { expect(parser).not_to parse('aa') }
-  example { expect(parser).not_to parse('ab') }
-  example { expect(parser).not_to parse('a1') }
-  example { expect(parser).not_to parse('b') }
-  example { expect(parser).not_to parse('ba') }
-  example { expect(parser).not_to parse('bb') }
-  example { expect(parser).not_to parse('b0') }
+  example { expect(parser).not_to parse('').and_fail_at(0) }
+  example { expect(parser).not_to parse('a').and_fail_at(1) }
+  example { expect(parser).not_to parse('aa').and_fail_at(1) }
+  example { expect(parser).not_to parse('ab').and_fail_at(1) }
+  example { expect(parser).not_to parse('a1').and_fail_at(1) }
+  example { expect(parser).not_to parse('b').and_fail_at(1) }
+  example { expect(parser).not_to parse('ba').and_fail_at(1) }
+  example { expect(parser).not_to parse('bb').and_fail_at(1) }
+  example { expect(parser).not_to parse('b0').and_fail_at(1) }
 end

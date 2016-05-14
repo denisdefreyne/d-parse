@@ -4,5 +4,6 @@ describe DParse::Parsers::Any do
   example { expect(parser).to parse('a').up_to(1) }
   example { expect(parser).to parse('b').up_to(1) }
   example { expect(parser).to parse('ab').up_to(1) }
-  example { expect(parser).not_to parse('') }
+
+  example { expect(parser).not_to parse('').and_fail_at(0) }
 end

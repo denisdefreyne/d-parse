@@ -23,6 +23,7 @@ RSpec::Matchers.define :parse do |text|
 
     conditions = [
       res.is_a?(DParse::Failure),
+      -> { (@new_pos.nil? || res.pos.index == @new_pos) },
       -> { (@failure_msg.nil? || res.message == @failure_msg) },
     ]
 
@@ -54,7 +55,16 @@ RSpec::Matchers.define :parse do |text|
     when DParse::Success
       s << "and fail (rather than parse up to #{res.pos.inspect})"
     when DParse::Failure
-      s << "and fail, but with #{@failure_msg.inspect} (rather than #{res.message.inspect})"
+      buts = []
+      buts << "with #{@failure_msg.inspect} (rather than #{res.message.inspect})" if @failure_msg
+      buts << "at #{@new_pos} (rather than #{res.pos.index})" if @new_pos && @new_pos != res.pos.index
+
+      s <<
+        if buts.any?
+          "and fail, but #{buts.join(' and ')}"
+        else
+          'and fail'
+        end
     end
 
     "expected #{actual} to #{s.join(' ')}"
