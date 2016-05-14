@@ -1,6 +1,6 @@
 module DParse
   module Parsers
-    class Optional < DParse::Parser
+    class Opt < DParse::Parser
       def self.new(parser)
         DParse::Parsers::Alt.new(
           parser,

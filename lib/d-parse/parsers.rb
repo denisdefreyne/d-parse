@@ -19,7 +19,7 @@ require_relative 'parsers/modifiers/rename_failure'
 
 require_relative 'parsers/highlevel/char_in'
 require_relative 'parsers/highlevel/intersperse'
-require_relative 'parsers/highlevel/optional'
+require_relative 'parsers/highlevel/opt'
 require_relative 'parsers/highlevel/json'
 require_relative 'parsers/highlevel/string'
 require_relative 'parsers/highlevel/whitespace_char'

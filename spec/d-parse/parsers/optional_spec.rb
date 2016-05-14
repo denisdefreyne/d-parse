@@ -1,4 +1,4 @@
-describe DParse::Parsers::Optional do
+describe DParse::Parsers::Opt do
   let(:char) { DParse::Parsers::Char.new('a') }
   let(:parser) { described_class.new(char) }
 

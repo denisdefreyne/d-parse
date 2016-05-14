@@ -33,7 +33,7 @@ module DParse
     end
 
     def opt(p)
-      DParse::Parsers::Optional.new(p)
+      DParse::Parsers::Opt.new(p)
     end
 
     def rename_failure(p, message)
