@@ -16,6 +16,14 @@ module DParse
       DParse::Parsers::NotChars.new(*cs)
     end
 
+    def intersperse(a, b)
+      DParse::Parsers::Intersperse.new(a, b)
+    end
+
+    def repeat(p)
+      DParse::Parsers::Repeat.new(p)
+    end
+
     def seq(*ps)
       DParse::Parsers::Sequence.new(*ps)
     end
