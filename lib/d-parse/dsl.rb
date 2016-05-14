@@ -24,6 +24,10 @@ module DParse
       DParse::Parsers::Repeat.new(p)
     end
 
+    def opt(p)
+      DParse::Parsers::Optional.new(p)
+    end
+
     def seq(*ps)
       DParse::Parsers::Sequence.new(*ps)
     end
