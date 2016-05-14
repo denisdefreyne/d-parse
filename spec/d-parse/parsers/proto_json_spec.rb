@@ -22,6 +22,17 @@ describe DParse::Parsers::ProtoJSON do
   example { expect(parser).to parse(input).up_to(163).and_capture(expected_capture) }
 
   example { expect(parser).to parse('{"num":0}').up_to(9).and_capture('num' => 0) }
+  example { expect(parser).to parse('{"nu m":0}').up_to(10).and_capture('nu m' => 0) }
+  example { expect(parser).to parse('{"nu\"m":0}').up_to(11).and_capture('nu"m' => 0) }
+  example { expect(parser).to parse('{"nu\\\\m":0}').up_to(11).and_capture('nu\\m' => 0) }
+  example { expect(parser).to parse('{"nu\\/m":0}').up_to(11).and_capture('nu/m' => 0) }
+  example { expect(parser).to parse('{"nu\\bm":0}').up_to(11).and_capture("nu\bm" => 0) }
+  example { expect(parser).to parse('{"nu\\fm":0}').up_to(11).and_capture("nu\fm" => 0) }
+  example { expect(parser).to parse('{"nu\\nm":0}').up_to(11).and_capture("nu\nm" => 0) }
+  example { expect(parser).to parse('{"nu\\rm":0}').up_to(11).and_capture("nu\rm" => 0) }
+  example { expect(parser).to parse('{"nu\\tm":0}').up_to(11).and_capture("nu\tm" => 0) }
+
+  example { expect(parser).to parse('{"num":0}').up_to(9).and_capture('num' => 0) }
   example { expect(parser).to parse('{"num":-0}').up_to(10).and_capture('num' => 0) }
   example { expect(parser).to parse('{"num":3}').up_to(9).and_capture('num' => 3) }
   example { expect(parser).to parse('{"num":-3}').up_to(10).and_capture('num' => -3) }

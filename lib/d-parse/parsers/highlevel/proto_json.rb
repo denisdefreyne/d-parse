@@ -9,14 +9,56 @@ module DParse
         whitespace =
           repeat(whitespace_char)
 
-        # Strig
+        # String
 
         json_string =
           seq(
             char('"').ignore,
-            repeat(char_not('"')).capture,
+            repeat(
+              alt(
+                char_not_in(%w( " \\ )).capture,
+                seq(
+                  # TODO: add hexadecimal digits support
+                  char('\\').ignore,
+                  char_in(%w( " \\ / b f n r t )).capture,
+                ).compact,
+              ),
+            ),
             char('"').ignore,
-          ).compact.first
+          ).compact.first.map do |d, _, _|
+            new_chars =
+              d.map do |char|
+                case char
+                when ::String
+                  char
+                when ::Array
+                  case char[0]
+                  when '"'
+                    '"'
+                  when '\\'
+                    '\\'
+                  when '/'
+                    '/'
+                  when 'b'
+                    "\b"
+                  when 'f'
+                    "\f"
+                  when 'n'
+                    "\n"
+                  when 'r'
+                    "\r"
+                  when 't'
+                    "\t"
+                  else
+                    raise "Unexpected escape sequence #{char[0].inspect}"
+                  end
+                else
+                  raise "??? #{char.inspect} (#{char.class})"
+                end
+              end
+
+            new_chars.join('')
+          end
 
         # Array
 
