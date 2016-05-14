@@ -10,13 +10,12 @@ module DParse
       @column = column
     end
 
-    def advance_line
-      Position.new(index: @index + 1, line: @line + 1, column: 0)
-    end
-
-    # TODO: use proper newline handling
-    def advance(n = 1)
-      Position.new(index: @index + n, line: @line, column: @column + n)
+    def advance(char)
+      Position.new(
+        index: @index + 1,
+        line: char == "\n" ? @line + 1 : @line,
+        column: char == "\n" ? 0 : @column + 1,
+      )
     end
 
     def to_s

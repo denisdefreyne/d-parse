@@ -10,8 +10,9 @@ module DParse
       end
 
       def read(input, pos)
-        if input[pos.index] && @chars.all? { |char| input[pos.index] != char }
-          Success.new(input, pos.advance)
+        char = input[pos.index]
+        if char && @chars.all? { |c| char != c }
+          Success.new(input, pos.advance(char))
         else
           Failure.new(input, pos)
         end

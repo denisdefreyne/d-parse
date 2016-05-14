@@ -7,10 +7,11 @@ module DParse
       end
 
       def read(input, pos)
-        if input[pos.index] == @char
-          Success.new(input, pos.advance)
+        char = input[pos.index]
+        if char == @char
+          Success.new(input, pos.advance(char))
         else
-          Failure.new(input, pos, message: "expected #{display @char}, but found #{display input[pos.index]} at #{pos}")
+          Failure.new(input, pos, message: "expected #{display @char}, but found #{display char} at #{pos}")
         end
       end
 

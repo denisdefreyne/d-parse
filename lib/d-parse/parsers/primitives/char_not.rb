@@ -7,8 +7,9 @@ module DParse
       end
 
       def read(input, pos)
-        if input[pos.index] != @char && input[pos.index]
-          Success.new(input, pos.advance)
+        char = input[pos.index]
+        if char != @char && char
+          Success.new(input, pos.advance(char))
         else
           Failure.new(input, pos)
         end
