@@ -17,7 +17,7 @@ module DParse
       end
 
       def inspect
-        "rename-failure(#{@parser})"
+        "rename_failure(#{@parser})"
       end
     end
   end

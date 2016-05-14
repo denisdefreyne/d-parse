@@ -10,4 +10,10 @@ describe DParse::Parsers::Repeat do
   example { expect(parser).to parse('aab').up_to(2) }
   example { expect(parser).to parse('aaa').up_to(3) }
   example { expect(parser).to parse('aaab').up_to(3) }
+
+  describe '#inspect' do
+    subject { parser.inspect }
+
+    it { is_expected.to eql('repeat(char("a"))') }
+  end
 end

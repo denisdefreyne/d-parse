@@ -10,4 +10,10 @@ describe DParse::Parsers::String do
   example { expect(parser).not_to parse('donke') }
   example { expect(parser).not_to parse('some donkey') }
   example { expect(parser).not_to parse('giraffe') }
+
+  describe '#inspect' do
+    subject { parser.inspect }
+
+    it { is_expected.to eql('seq(char("d"),char("o"),char("n"),char("k"),char("e"),char("y"))') }
+  end
 end

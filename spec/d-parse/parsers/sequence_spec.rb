@@ -12,4 +12,10 @@ describe DParse::Parsers::Seq do
   example { expect(parser).to parse('ab').up_to(2) }
   example { expect(parser).to parse('aba').up_to(2) }
   example { expect(parser).to parse('abb').up_to(2) }
+
+  describe '#inspect' do
+    subject { parser.inspect }
+
+    it { is_expected.to eql('seq(char("a"),char("b"))') }
+  end
 end

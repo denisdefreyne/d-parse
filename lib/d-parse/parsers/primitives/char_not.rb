@@ -16,7 +16,7 @@ module DParse
       end
 
       def inspect
-        "not-char(#{@char.inspect})"
+        "char_not(#{@char.inspect})"
       end
     end
   end

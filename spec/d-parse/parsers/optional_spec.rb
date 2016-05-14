@@ -7,4 +7,10 @@ describe DParse::Parsers::Opt do
   example { expect(parser).to parse('ab').up_to(1) }
   example { expect(parser).to parse('ba').up_to(0) }
   example { expect(parser).to parse('').up_to(0) }
+
+  describe '#inspect' do
+    subject { parser.inspect }
+
+    it { is_expected.to eql('alt(char("a"),succeed())') }
+  end
 end

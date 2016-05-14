@@ -14,4 +14,10 @@ describe DParse::Parsers::CharNotIn do
   example { expect(parser).not_to parse('ba').and_fail_at(0).line(0).column(0).with_failure('expected any character not in \'a\', \'b\'') }
   example { expect(parser).not_to parse('bb').and_fail_at(0).line(0).column(0).with_failure('expected any character not in \'a\', \'b\'') }
   example { expect(parser).not_to parse('bc').and_fail_at(0).line(0).column(0).with_failure('expected any character not in \'a\', \'b\'') }
+
+  describe '#inspect' do
+    subject { parser.inspect }
+
+    it { is_expected.to eql('char_not_in(["a", "b"])') }
+  end
 end

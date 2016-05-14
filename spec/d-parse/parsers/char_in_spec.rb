@@ -13,4 +13,10 @@ describe DParse::Parsers::CharIn do
   example { expect(parser).not_to parse('d').and_fail_at(0).line(0).column(0) }
   example { expect(parser).not_to parse('ca').and_fail_at(0).line(0).column(0) }
   example { expect(parser).not_to parse('db').and_fail_at(0).line(0).column(0) }
+
+  describe '#inspect' do
+    subject { parser.inspect }
+
+    it { is_expected.to eql('alt(char("a"),char("b"))') }
+  end
 end

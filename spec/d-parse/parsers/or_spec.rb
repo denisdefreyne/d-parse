@@ -17,4 +17,10 @@ describe DParse::Parsers::Alt do
   example { expect(parser).not_to parse('ca') }
   example { expect(parser).not_to parse('cb') }
   example { expect(parser).not_to parse('cc') }
+
+  describe '#inspect' do
+    subject { parser.inspect }
+
+    it { is_expected.to eql('alt(char("a"),char("b"))') }
+  end
 end

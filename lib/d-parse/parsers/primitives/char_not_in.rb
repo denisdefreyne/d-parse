@@ -19,7 +19,7 @@ module DParse
       end
 
       def inspect
-        "not-chars(#{@char.inspect})"
+        "char_not_in(#{@chars.inspect})"
       end
     end
   end

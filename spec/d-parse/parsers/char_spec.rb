@@ -13,4 +13,10 @@ describe DParse::Parsers::Char do
 
     example { expect(parser).to parse("\n").up_to(1).line(1).column(0) }
   end
+
+  describe '#inspect' do
+    subject { parser.inspect }
+
+    it { is_expected.to eql('char("a")') }
+  end
 end

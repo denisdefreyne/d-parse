@@ -7,4 +7,10 @@ describe DParse::Parsers::Lazy do
   example { expect(parser).to parse('ab').up_to(1) }
   example { expect(parser).not_to parse('') }
   example { expect(parser).not_to parse('b') }
+
+  describe '#inspect' do
+    subject { parser.inspect }
+
+    it { is_expected.to eql('lazy(?)') }
+  end
 end

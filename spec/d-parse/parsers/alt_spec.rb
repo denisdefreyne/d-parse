@@ -10,4 +10,13 @@ describe DParse::Parsers::Alt do
   example { expect(parser).not_to parse('Wilkommen').and_fail_at(0).line(0).column(0).with_failure('expected \'G\'') }
   example { expect(parser).not_to parse('Hallo').and_fail_at(1).line(0).column(1).with_failure('expected \'e\'') }
   example { expect(parser).not_to parse('Hellenistic period').and_fail_at(4).line(0).column(4).with_failure('expected \'o\'') }
+
+  describe '#inspect' do
+    subject { parser.inspect }
+
+    let(:a) { DParse::Parsers::Char.new('a') }
+    let(:b) { DParse::Parsers::Char.new('b') }
+
+    it { is_expected.to eql('alt(char("a"),char("b"))') }
+  end
 end

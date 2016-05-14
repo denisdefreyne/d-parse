@@ -5,4 +5,10 @@ describe DParse::Parsers::WhitespaceChar do
   example { expect(parser).to parse("\t").up_to(1) }
   example { expect(parser).to parse("\t ").up_to(1) }
   example { expect(parser).to parse(" \t").up_to(1) }
+
+  describe '#inspect' do
+    subject { parser.inspect }
+
+    it { is_expected.to eql('alt(char(" "),char("\\t"))') }
+  end
 end
