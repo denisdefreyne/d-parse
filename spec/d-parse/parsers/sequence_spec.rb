@@ -1,4 +1,4 @@
-describe DParse::Parsers::Sequence do
+describe DParse::Parsers::Seq do
   let(:char_a) { DParse::Parsers::Char.new('a') }
   let(:char_b) { DParse::Parsers::Char.new('b') }
   let(:parser) { described_class.new(char_a, char_b) }

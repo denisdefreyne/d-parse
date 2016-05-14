@@ -20,8 +20,8 @@ module DParse
       DParse::Parsers::CharNotIn.new(cs)
     end
 
-    def end_of_input
-      DParse::Parsers::EndOfInput.new
+    def eof
+      DParse::Parsers::EOF.new
     end
 
     def intersperse(a, b)

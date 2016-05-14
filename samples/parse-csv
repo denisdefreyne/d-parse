@@ -12,6 +12,6 @@ include DParse::DSL
 
 field = not_chars(',', "\n").repeat.capture
 line = field.intersperse(char(',')).select_even
-file = seq(line.intersperse(char("\n")).select_even, end_of_input).first
+file = seq(line.intersperse(char("\n")).select_even, eof).first
 
 pp file.apply(data)

@@ -10,6 +10,6 @@ EOS
 
 include DParse::DSL
 
-parser = seq(char('a').repeat, end_of_input)
+parser = seq(char('a').repeat, eof)
 
 puts parser.apply('aaab').pretty_message

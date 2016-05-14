@@ -20,7 +20,7 @@ comma = char(',')
 # basic
 identifier = seq(letter, letter.repeat).capture.named('identifier')
 lit = seq(digit, digit.repeat).capture.map { |d| d.to_i(10) }
-eof = seq(char("\n").optional, end_of_input)
+eof = seq(char("\n").optional, eof)
 whitespace = whitespace_char.repeat
 
 # complex

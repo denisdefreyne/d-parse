@@ -1,4 +1,4 @@
-describe DParse::Parsers::EndOfInput do
+describe DParse::Parsers::EOF do
   let(:parser) { described_class.new }
 
   example { expect(parser).to parse('') }

@@ -1,6 +1,6 @@
 module DParse
   module Parsers
-    class EndOfInput < DParse::Parser
+    class EOF < DParse::Parser
       def read(input, pos)
         if input.size == pos.index
           Success.new(input, pos)
