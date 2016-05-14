@@ -17,7 +17,7 @@ RSpec::Matchers.define :parse do |text|
       -> { (@capture.nil? || @capture == res.data) },
     ]
 
-    conditions.all?
+    conditions.all? { |e| e.respond_to?(:call) ? e.call : e }
   end
 
   match_when_negated do |actual|
