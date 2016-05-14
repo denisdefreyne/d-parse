@@ -61,6 +61,7 @@ RSpec::Matchers.define :parse do |text|
   end
 
   chain :up_to, :new_pos
+  chain :and_fail_at, :new_pos
   chain :and_capture, :capture
   chain :with_failure, :failure_msg
 
