@@ -48,6 +48,10 @@ module DParse
       DParse::Parsers::String.new(s)
     end
 
+    def succeed
+      DParse::Parsers::Succeed.new
+    end
+
     def whitespace_char
       DParse::Parsers::WhitespaceChar.new
     end
