@@ -18,6 +18,13 @@ module DParse
 
         # String
 
+        json_digit_hex =
+          alt(
+            char_in('0'..'9'),
+            char_in('a'..'f'),
+            char_in('A'..'F'),
+          )
+
         json_string =
           seq(
             char('"').ignore,
@@ -25,9 +32,19 @@ module DParse
               alt(
                 char_not_in(%w( " \\ )).capture,
                 seq(
-                  # TODO: add hexadecimal digits support
                   char('\\').ignore,
-                  char_in(%w( " \\ / b f n r t )).capture,
+                  alt(
+                    char_in(%w( " \\ / b f n r t )).capture,
+                    seq(
+                      char('u').capture,
+                      seq(
+                        json_digit_hex,
+                        json_digit_hex,
+                        json_digit_hex,
+                        json_digit_hex,
+                      ).capture,
+                    ),
+                  ),
                 ).compact,
               ),
             ),
@@ -57,7 +74,11 @@ module DParse
                   when 't'
                     "\t"
                   else
-                    raise "Unexpected escape sequence #{char[0].inspect}"
+                    if char[0].is_a?(Array) && char[0][0] == 'u'
+                      char[0][1].to_i(16).chr(Encoding::UTF_8)
+                    else
+                      raise "Unexpected escape sequence #{char[0].inspect}"
+                    end
                   end
                 else
                   raise "??? #{char.inspect} (#{char.class})"

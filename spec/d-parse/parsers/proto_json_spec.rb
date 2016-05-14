@@ -37,6 +37,8 @@ describe DParse::Parsers::ProtoJSON do
   example { expect(parser).to parse('{"nu\\nm":0}').up_to(11).and_capture("nu\nm" => 0) }
   example { expect(parser).to parse('{"nu\\rm":0}').up_to(11).and_capture("nu\rm" => 0) }
   example { expect(parser).to parse('{"nu\\tm":0}').up_to(11).and_capture("nu\tm" => 0) }
+  example { expect(parser).to parse('{"nu\\u0000m":0}').up_to(15).and_capture("nu\u0000m" => 0) }
+  example { expect(parser).to parse('{"nu\\u0020m":0}').up_to(15).and_capture('nu m' => 0) }
 
   example { expect(parser).to parse('{"num":0}').up_to(9).and_capture('num' => 0) }
   example { expect(parser).to parse('{"num":-0}').up_to(10).and_capture('num' => 0) }
