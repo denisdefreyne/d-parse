@@ -18,18 +18,18 @@ rparen = char(')')
 comma = char(',')
 
 # basic
-identifier = seq(letter, repeat(letter)).capture.named('identifier')
+identifier = seq(letter, repeat(letter)).capture
 lit = seq(digit, repeat(digit)).capture.map { |d| d.to_i(10) }
-eof = seq(char("\n").opt, eof)
+eof_with_opt_nl = seq(opt(char("\n")), eof)
 whitespace = repeat(whitespace_char)
 
 # complex
 funcall = nil
-expression = alt(lazy { funcall }, lit).named('expression')
+expression = alt(lazy { funcall }, lit)
 arglist_tail = repeat(seq(comma, whitespace, expression).map { |d| d[2] })
 arglist = seq(expression, arglist_tail).map { |d| [d[0]] + d[1] }
 funcall = seq(identifier, lparen, arglist, rparen).map { |d| [d[0]] + d[2] }
-program = seq(expression.intersperse(char("\n")).select_even, eof).first
+program = seq(expression.intersperse(char("\n")).select_even, eof_with_opt_nl).first
 
 def eval_expr(expr)
   case expr
