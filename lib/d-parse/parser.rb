@@ -37,8 +37,16 @@ module DParse
       map { |d| d.is_a?(Array) ? d.reduce(:+) : d }
     end
 
+    def compact
+      map { |d, _, _| d.compact }
+    end
+
     def map(&block)
       DParse::Parsers::Map.new(self, &block)
+    end
+
+    def ignore
+      DParse::Parsers::Ignore.new(self)
     end
 
     def bind(&block)
