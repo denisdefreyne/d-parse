@@ -66,13 +66,23 @@ end
 
 Special modifiers:
 
-* `lazy { p }`
+* `lazy { p }` references the parser `p`, which might not be defined yet. This is useful for recursive definitions.
 
 * `p.capture` sets the data of the parsing result of `p`, if successful, to the data between the start and the end of the match.
 
 * `p.ignore` sets the data of the parsing result of `p`, if successful, to `nil`.
 
-* `p.map`
+* `p.map { |data| … }` sets the data of the parsing result of `p`, if successful, to the return value of the block. The block gets the data of the success as an argument.
+
+* `p.first` sets the data of the parsing result of `p`, if successful, to the first element of the data of the success. This only works if the success data is an array.
+
+* `p.second` sets the data of the parsing result of `p`, if successful, to the second element of the data of the success. This only works if the success data is an array.
+
+* `p.select_odd` sets the data of the parsing result of `p`, if successful, to each odd element of the data of the success. This only works if the success data is an array.
+
+* `p.select_even` sets the data of the parsing result of `p`, if successful, to each even element of the data of the success. This only works if the success data is an array.
+
+* `p.compact` sets the data of the parsing result of `p`, if successful, to each non-nil element of the data of the success. This only works if the success data is an array.
 
 ## To do
 
