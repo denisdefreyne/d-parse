@@ -14,7 +14,7 @@ module DParse
         if char && @chars.all? { |c| char != c }
           Success.new(input, pos.advance(char))
         else
-          Failure.new(input, pos)
+          Failure.new(input, pos, message: "expected any character not in #{@chars.map { |c| display(c) }.join(', ')}, but found #{display char}")
         end
       end
 
