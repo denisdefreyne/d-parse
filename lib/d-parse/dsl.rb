@@ -4,16 +4,16 @@ module DParse
       DParse::Parsers::Char.new(c)
     end
 
-    def char_in(enum)
-      DParse::Parsers::CharIn.new(enum)
+    def char_in(cs)
+      DParse::Parsers::CharIn.new(cs)
     end
 
-    def not_char(c)
-      DParse::Parsers::NotChar.new(c)
+    def char_not(c)
+      DParse::Parsers::CharNot.new(c)
     end
 
-    def not_chars(*cs)
-      DParse::Parsers::NotChars.new(*cs)
+    def char_not_in(cs)
+      DParse::Parsers::CharNotIn.new(cs)
     end
 
     def intersperse(a, b)

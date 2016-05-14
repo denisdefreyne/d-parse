@@ -1,6 +1,6 @@
 module DParse
   module Parsers
-    class NotChar < DParse::Parser
+    class CharNot < DParse::Parser
       def initialize(char)
         raise ArgumentError, 'Expected input to have one char' unless char.length == 1
         @char = char

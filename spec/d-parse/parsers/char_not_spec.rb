@@ -1,4 +1,4 @@
-describe DParse::Parsers::NotChar do
+describe DParse::Parsers::CharNot do
   let(:parser) { described_class.new('a') }
 
   example { expect(parser).to parse('b').up_to(1) }
