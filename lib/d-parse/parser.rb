@@ -57,10 +57,6 @@ module DParse
       DParse::Parsers::Capturing.new(self)
     end
 
-    def intersperse(other)
-      DParse::Parsers::Intersperse.new(self, other)
-    end
-
     def named(name)
       DParse::Parsers::Name.new(self, name)
     end
