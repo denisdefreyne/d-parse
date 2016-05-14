@@ -55,19 +55,53 @@ module DParse
         json_digit =
           char_in('0'..'9')
 
-        # TODO: add floating point support
-        # FIXME: #to_i is not going to cut it
         json_number =
           seq(
-            opt(char('-')),
+            opt(char('-')).capture,
             alt(
               char('0'),
               seq(
                 char_in('1'..'9'),
                 repeat(json_digit),
               ),
+            ).capture,
+            opt(
+              seq(
+                char('.').ignore,
+                repeat(json_digit).capture,
+              ).compact,
+            ).capture,
+            opt(
+              seq(
+                alt(char('e'), char('E')),
+                alt(char('+'), char('-'), succeed).capture,
+                repeat(json_digit).capture,
+              ).compact,
             ),
-          ).capture.map { |d, _, _| d.to_i }
+          ).map do |d, _, _|
+            base =
+              if d[2].empty?
+                d.take(3).join.to_i(10)
+              else
+                d.take(3).join.to_f
+              end
+
+            factor =
+              if d[3]
+                unsigned_factor = d[3][1].to_i(10)
+
+                case d[3][0]
+                when '+', ''
+                  10**unsigned_factor
+                when '-'
+                  - 10**unsigned_factor
+                end
+              else
+                1
+              end
+
+            base * factor
+          end
 
         # Object
 

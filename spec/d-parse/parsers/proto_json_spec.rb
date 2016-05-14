@@ -20,4 +20,26 @@ describe DParse::Parsers::ProtoJSON do
   end
 
   example { expect(parser).to parse(input).up_to(163).and_capture(expected_capture) }
+
+  example { expect(parser).to parse('{"num":0}').up_to(9).and_capture('num' => 0) }
+  example { expect(parser).to parse('{"num":-0}').up_to(10).and_capture('num' => 0) }
+  example { expect(parser).to parse('{"num":3}').up_to(9).and_capture('num' => 3) }
+  example { expect(parser).to parse('{"num":-3}').up_to(10).and_capture('num' => -3) }
+  example { expect(parser).to parse('{"num":0.1}').up_to(11).and_capture('num' => 0.1) }
+  example { expect(parser).to parse('{"num":-0.1}').up_to(12).and_capture('num' => -0.1) }
+
+  example { expect(parser).to parse('{"num":0e1}').up_to(11).and_capture('num' => 0) }
+  example { expect(parser).to parse('{"num":0E1}').up_to(11).and_capture('num' => 0) }
+  example { expect(parser).to parse('{"num":0e2}').up_to(11).and_capture('num' => 0) }
+  example { expect(parser).to parse('{"num":0E2}').up_to(11).and_capture('num' => 0) }
+
+  example { expect(parser).to parse('{"num":2e1}').up_to(11).and_capture('num' => 20) }
+  example { expect(parser).to parse('{"num":2E1}').up_to(11).and_capture('num' => 20) }
+  example { expect(parser).to parse('{"num":2e2}').up_to(11).and_capture('num' => 200) }
+  example { expect(parser).to parse('{"num":2E2}').up_to(11).and_capture('num' => 200) }
+
+  example { expect(parser).to parse('{"num":2.1e1}').up_to(13).and_capture('num' => 21.0) }
+  example { expect(parser).to parse('{"num":2.1E1}').up_to(13).and_capture('num' => 21.0) }
+  example { expect(parser).to parse('{"num":2.1e2}').up_to(13).and_capture('num' => 210.0) }
+  example { expect(parser).to parse('{"num":2.1E2}').up_to(13).and_capture('num' => 210.0) }
 end
