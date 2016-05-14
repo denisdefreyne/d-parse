@@ -1,8 +1,14 @@
 #!/usr/bin/env ruby
 
 require 'd-parse'
-require 'd-parse/dsl'
 require 'pp'
+
+data = <<EOS
+first_name,last_name,age
+Denis,Defreyne,29
+EOS
+
+include DParse::DSL
 
 parser = seq(char('a').repeat, end_of_input)
 

@@ -1,7 +1,8 @@
 #!/usr/bin/env ruby
 
 require 'd-parse'
-require 'd-parse/dsl'
+
+include DParse::DSL
 
 digit = chars(*('0'..'9')).capture
 letter = chars(*('a'..'z')).capture
@@ -21,4 +22,4 @@ pair =
 
 parser = pair.repeat
 
-main(parser)
+p parser.apply("lad1d2d3lblc")

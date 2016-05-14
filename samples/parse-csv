@@ -1,12 +1,17 @@
 #!/usr/bin/env ruby
 
 require 'd-parse'
-require 'd-parse/dsl'
 require 'pp'
+
+data = <<EOS
+first_name,last_name,age
+Denis,Defreyne,29
+EOS
+
+include DParse::DSL
 
 field = not_chars(',', "\n").repeat.capture
 line = field.intersperse(char(',')).select_even
 file = seq(line.intersperse(char("\n")).select_even, end_of_input).first
 
-exprs = parse_from_argv(file)
-pp exprs
+pp file.apply(data)

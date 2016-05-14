@@ -41,5 +41,3 @@ module DParse
     end
   end
 end
-
-include DParse::DSL

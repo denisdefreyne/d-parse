@@ -1,8 +1,14 @@
 #!/usr/bin/env ruby
 
 require 'd-parse'
-require 'd-parse/dsl'
 require 'pp'
+
+data = <<EOS
+add(1, mul(2, 3))
+mul(2,3)
+EOS
+
+include DParse::DSL
 
 # primitives
 digit = alt(*('0'..'9').map { |c| char(c) })
@@ -43,6 +49,6 @@ def eval_expr(expr)
   end
 end
 
-exprs = parse_from_argv(program)
+exprs = program.apply(data).data
 pp exprs
 exprs.each { |e| p eval_expr(e) }
