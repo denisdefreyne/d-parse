@@ -14,7 +14,6 @@ require_relative 'parsers/combinators/repeat'
 require_relative 'parsers/modifiers/capturing'
 require_relative 'parsers/modifiers/lazy'
 require_relative 'parsers/modifiers/map'
-require_relative 'parsers/modifiers/name'
 require_relative 'parsers/modifiers/ignore'
 require_relative 'parsers/modifiers/rename_failure'
 
