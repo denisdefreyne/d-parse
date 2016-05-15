@@ -2,20 +2,22 @@
 
 require 'd-parse'
 
-include DParse::DSL
+module Grammar
+  extend DParse::DSL
 
-digit = char_in('0'..'9')
+  DIGIT = char_in('0'..'9')
 
-parser =
-  seq(
-    intersperse(
-      repeat(digit).capture.map { |d| d.to_i(10) },
-      char(',').ignore,
-    ).compact,
-    eof,
-  ).first
+  ROOT =
+    seq(
+      intersperse(
+        repeat(DIGIT).capture.map { |d| d.to_i(10) },
+        char(',').ignore,
+      ).compact,
+      eof,
+    ).first
+end
 
-res = parser.apply("1,2,100,58x2048,07,09")
+res = Grammar::ROOT.apply("1,2,100,582048,07,09")
 case res
 when DParse::Success
   p res.data

@@ -8,10 +8,12 @@ first_name,last_name,age
 Denis,Defreyne,29
 EOS
 
-include DParse::DSL
+module Grammar
+  extend DParse::DSL
 
-field = repeat(char_not_in([',', "\n"])).capture
-line = intersperse(field, char(',')).select_even
-file = seq(intersperse(line, char("\n")).select_even, eof).first
+  FIELD = repeat(char_not_in([',', "\n"])).capture
+  LINE = intersperse(FIELD, char(',')).select_even
+  FILE = seq(intersperse(LINE, char("\n")).select_even, eof).first
+end
 
-pp file.apply(data)
+pp Grammar::FILE.apply(data)
