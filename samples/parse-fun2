@@ -1,0 +1,103 @@
+#!/usr/bin/env ruby
+
+require 'd-parse'
+require 'pp'
+
+data = <<EOS
+def ;foo(x, y) {
+  add(4, y);
+}
+
+add(foo(1, mul(2, 2)), 3);
+EOS
+
+require_relative 'fun2-grammar'
+
+# AST format:
+#
+# (call "add" [arg0, …])
+# (int 123)
+# (var "foo")
+# (def [arg0, …] "name" [stm0, …])
+
+def eval_statements(exprs, env = {}, print: false)
+  exprs.inject([nil, env]) do |pair, statement|
+    res = eval_expr(statement, pair[1])
+    p res[0] if print
+    res
+  end[0]
+end
+
+def fetch_from_env!(name:, type:, env:)
+  from_env = env[name]
+  if from_env
+    if from_env[0] == type
+      from_env[1]
+    else
+      raise "Not a function: #{name} (#{type}, #{from_env.inspect})"
+    end
+  else
+      raise "Unknown function: #{name}"
+  end
+end
+
+def eval_expr(expr, env = {})
+  unless expr.is_a?(Array)
+    raise "Unknown expression type: #{expr.inspect}"
+  end
+
+  case expr[0]
+  when :call
+    puts '*** call ' + expr.inspect
+    args = expr.drop(2).map { |e| eval_expr(e, env)[0] }
+    p [:args, args]
+
+    res =
+      case expr[1]
+      when 'add'
+        args.reduce(:+)
+      when 'sub'
+        args.reduce(:-)
+      when 'mul'
+        args.reduce(:*)
+      else
+        data = fetch_from_env!(name: expr[1], type: :fun, env: env)
+        params = data[0].map { |x| x[1] }
+        statements = data[1]
+
+        env_for_call = env.merge(Hash[params.zip(args.map { |i| [:int, i] })])
+        res = eval_statements(statements, env_for_call)
+      end
+
+    [res, env]
+
+  when :def
+    name = expr[1]
+    params = expr[2]
+    statements = expr[3]
+    [nil, env.merge(name => [:fun, [params, statements]])]
+
+  when :int
+    [expr[1], env]
+
+  when :var
+    name = expr[1]
+    data = fetch_from_env!(name: name, type: :int, env: env)
+    [data, env]
+
+  else
+    raise "Unknown node: #{expr[0]}"
+  end
+end
+
+res = Grammar::PROGRAM.apply(data)
+case res
+when DParse::Success
+  pp res.data
+  puts
+  env = { 'a' => [:int, 100] }
+  eval_statements(res.data, env, print: true)
+when DParse::Failure
+  $stderr.puts res.pretty_message
+  exit 1
+end
