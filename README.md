@@ -14,21 +14,23 @@ Here is a parser for a series of numbers:
 
 ```ruby
 require 'd-parse'
-include DParse::DSL
 
-digit =
-  char_in('0'..'9')
+module Grammar
+  extend DParse::DSL
 
-parser =
-  seq(
-    intersperse(
-      repeat(digit).capture.map { |d| d.to_i(10) },
-      char(',').ignore,
-    ).compact,
-    eof,
-  ).first
+  DIGIT = char_in('0'..'9')
 
-res = parser.apply("1,2,100,582048,07,09")
+  ROOT =
+    seq(
+      intersperse(
+        repeat(DIGIT).capture.map { |d| d.to_i(10) },
+        char(',').ignore,
+      ).compact,
+      eof,
+    ).first
+end
+
+res = Grammar::ROOT.apply("1,2,100,582048,07,09")
 case res
 when DParse::Success
   p res.data
