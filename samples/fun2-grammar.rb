@@ -17,12 +17,12 @@ module Grammar
   # basic
 
   IDENTIFIER =
-    rename_failure(
+    describe(
       seq(
         LETTER,
         repeat(LETTER),
       ).capture,
-      'expected identifier',
+      'identifier',
     )
 
   INTEGER =
