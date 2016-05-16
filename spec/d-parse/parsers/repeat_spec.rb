@@ -16,4 +16,25 @@ describe DParse::Parsers::Repeat do
 
     it { is_expected.to eql('repeat(char("a"))') }
   end
+
+  context 'successes with associated failures' do
+    let(:parser) { described_class.new(DParse::Parsers::String.new('hello')) }
+
+    it 'picks the most specific failure' do
+      expect(parser.apply('hell')).to be_a(DParse::Success)
+      expect(parser.apply('hell').pos.index).to eql(0)
+      expect(parser.apply('hell').best_failure).to be_a(DParse::Failure)
+      expect(parser.apply('hell').best_failure.pos.index).to eql(4)
+
+      expect(parser.apply('hello')).to be_a(DParse::Success)
+      expect(parser.apply('hello').pos.index).to eql(5)
+      expect(parser.apply('hello').best_failure).to be_a(DParse::Failure)
+      expect(parser.apply('hello').best_failure.pos.index).to eql(5)
+
+      expect(parser.apply('helloh')).to be_a(DParse::Success)
+      expect(parser.apply('helloh').pos.index).to eql(5)
+      expect(parser.apply('helloh').best_failure).to be_a(DParse::Failure)
+      expect(parser.apply('helloh').best_failure.pos.index).to eql(6)
+    end
+  end
 end

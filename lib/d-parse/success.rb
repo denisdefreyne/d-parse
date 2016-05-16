@@ -3,19 +3,25 @@ module DParse
     attr_reader :input
     attr_reader :pos
     attr_reader :data
+    attr_reader :best_failure
 
-    def initialize(input, pos, data: nil)
+    def initialize(input, pos, data: nil, best_failure: nil)
       @input = input
       @pos = pos
       @data = data
+      @best_failure = best_failure
     end
 
     def map
-      self.class.new(@input, @pos, data: yield(@data))
+      self.class.new(@input, @pos, data: yield(@data), best_failure: @best_failure)
+    end
+
+    def with_best_failure(failure)
+      self.class.new(@input, @pos, data: @data, best_failure: failure)
     end
 
     def to_s
-      "Success(#{@pos}; #{@data})"
+      "Success(#{@pos}; #{@data}#{@best_failure ? '; best failure = ' + best_failure.inspect : ''})"
     end
 
     def success?

@@ -18,4 +18,35 @@ describe DParse::Parsers::Seq do
 
     it { is_expected.to eql('seq(char("a"),char("b"))') }
   end
+
+  context 'successes with associated failures' do
+    let(:a) { double('parser') }
+    let(:b) { double('parser') }
+
+    before do
+      expect(a).to receive(:read).and_return(
+        DParse::Success.new(
+          '…',
+          DParse::Position.new(index: 1, line: 0, column: 1),
+          best_failure: DParse::Failure.new(
+            '…',
+            DParse::Position.new(index: 20, line: 0, column: 20),
+          ),
+        ),
+      )
+
+      expect(b).to receive(:read).and_return(
+        DParse::Failure.new(
+          '…',
+          DParse::Position.new(index: 10, line: 0, column: 10),
+        ),
+      )
+    end
+
+    let(:parser) { described_class.new(a, b) }
+
+    it 'picks the most specific failure' do
+      expect(parser).not_to parse('…').and_fail_at(20).line(0).column(20)
+    end
+  end
 end

@@ -3,18 +3,43 @@
 require 'd-parse'
 require 'pp'
 
-data = <<EOS
-first_name,last_name,age
-Denis,Defreyne,29
-EOS
+module MyGrammar
+  extend DParse::DSL
 
-include DParse::DSL
+  LETTER =
+    describe(alt(*('a'..'z').map { |c| char(c) }), 'letter')
 
-parser =
-  alt(
-    string('Hello!'),
-    string('Hello, world!'),
-    string('Hello… ?'),
-  )
+  IDENTIFIER =
+    describe(
+      repeat(LETTER).capture,
+      'identifier',
+    )
 
-puts parser.apply('Hello, what?').pretty_message
+  FUNDEF =
+    seq(
+      describe(IDENTIFIER, 'identifier'),
+      eof,
+    )
+
+  PARSER =
+    alt(
+      string('Hello!'),
+      string('Hello, world!'),
+      string('Hello… ?'),
+    )
+
+  TESTB =
+    seq(
+      alt(
+        seq(string("a+a").capture),
+        seq(string("a").capture),
+      ),
+      eof,
+    )
+end
+
+puts MyGrammar::PARSER.apply('Hello, what?').pretty_message
+puts
+puts MyGrammar::FUNDEF.apply('foo3a').pretty_message
+puts
+puts MyGrammar::TESTB.apply('a+').pretty_message

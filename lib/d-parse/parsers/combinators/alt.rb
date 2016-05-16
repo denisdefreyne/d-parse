@@ -16,21 +16,21 @@ module DParse
         "alt(#{@parsers.map(&:inspect).join(',')})"
       end
 
+      private
+
       def best(a, b)
-        case a
-        when DParse::Success
-          a
-        when DParse::Failure
-          case b
-          when DParse::Success
-            b
-          when DParse::Failure
-            if a.pos.index > b.pos.index
-              a
-            else
-              b
-            end
-          end
+        successes, failures = [a, b].partition { |pa| pa.is_a?(DParse::Success) }
+
+        best_success = successes.max_by { |r| r.pos.index }
+        best_failure = failures.max_by { |r| r.pos.index }
+
+        case successes.size
+        when 2
+          best_success
+        when 1
+          best_success.with_best_failure(best_failure)
+        when 0
+          best_failure
         end
       end
     end
