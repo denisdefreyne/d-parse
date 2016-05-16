@@ -1,4 +1,4 @@
-describe DParse::Parsers::Rename do
+describe DParse::Parsers::Describe do
   let(:identifier) do
     DParse::Parsers::Seq.new(
       DParse::Parsers::Repeat.new(

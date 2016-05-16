@@ -15,7 +15,7 @@ require_relative 'parsers/modifiers/capturing'
 require_relative 'parsers/modifiers/lazy'
 require_relative 'parsers/modifiers/map'
 require_relative 'parsers/modifiers/ignore'
-require_relative 'parsers/modifiers/rename'
+require_relative 'parsers/modifiers/describe'
 
 require_relative 'parsers/highlevel/char_in'
 require_relative 'parsers/highlevel/intersperse'

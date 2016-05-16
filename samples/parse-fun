@@ -11,14 +11,14 @@ EOS
 include DParse::DSL
 
 # primitives
-digit = rename(alt(*('0'..'9').map { |c| char(c) }), 'digit')
-letter = rename(alt(*('a'..'z').map { |c| char(c) }), 'letter')
+digit = describe(alt(*('0'..'9').map { |c| char(c) }), 'digit')
+letter = describe(alt(*('a'..'z').map { |c| char(c) }), 'letter')
 lparen = char('(')
 rparen = char(')')
 comma = char(',')
 
 # basic
-identifier = rename(seq(letter, repeat(letter)).capture, 'identifier')
+identifier = describe(seq(letter, repeat(letter)).capture, 'identifier')
 lit = seq(digit, repeat(digit)).capture.map { |d| d.to_i(10) }
 eof_with_opt_nl = seq(opt(char("\n")), eof)
 whitespace = repeat(whitespace_char)

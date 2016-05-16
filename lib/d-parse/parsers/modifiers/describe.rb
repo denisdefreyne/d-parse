@@ -1,6 +1,6 @@
 module DParse
   module Parsers
-    class Rename < DParse::Parser
+    class Describe < DParse::Parser
       def initialize(parser, name)
         @parser = parser
         @name = name
