@@ -1,9 +1,9 @@
 module DParse
   module Parsers
-    class RenameFailure < DParse::Parser
-      def initialize(parser, message)
+    class Rename < DParse::Parser
+      def initialize(parser, name)
         @parser = parser
-        @message = message
+        @name = name
       end
 
       def read(input, pos)
@@ -12,12 +12,12 @@ module DParse
         when DParse::Success
           res
         when DParse::Failure
-          Failure.new(res.input, res.pos, message: @message)
+          Failure.new(res.input, res.pos, message: "expected #{@name}")
         end
       end
 
       def inspect
-        "rename_failure(#{@parser})"
+        "#{@name}()"
       end
     end
   end

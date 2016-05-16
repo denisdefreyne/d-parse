@@ -11,14 +11,14 @@ EOS
 include DParse::DSL
 
 # primitives
-digit = alt(*('0'..'9').map { |c| char(c) })
-letter = alt(*('a'..'z').map { |c| char(c) })
+digit = rename(alt(*('0'..'9').map { |c| char(c) }), 'digit')
+letter = rename(alt(*('a'..'z').map { |c| char(c) }), 'letter')
 lparen = char('(')
 rparen = char(')')
 comma = char(',')
 
 # basic
-identifier = seq(letter, repeat(letter)).capture
+identifier = rename(seq(letter, repeat(letter)).capture, 'identifier')
 lit = seq(digit, repeat(digit)).capture.map { |d| d.to_i(10) }
 eof_with_opt_nl = seq(opt(char("\n")), eof)
 whitespace = repeat(whitespace_char)
@@ -29,7 +29,7 @@ expression = alt(lazy { funcall }, lit)
 arglist_tail = repeat(seq(comma, whitespace, expression).map { |d| d[2] })
 arglist = seq(expression, arglist_tail).map { |d| [d[0]] + d[1] }
 funcall = seq(identifier, lparen, arglist, rparen).map { |d| [d[0]] + d[2] }
-program = seq(expression.intersperse(char("\n")).select_even, eof_with_opt_nl).first
+program = seq(intersperse(expression, char("\n")).select_even, eof_with_opt_nl).first
 
 def eval_expr(expr)
   case expr
@@ -49,6 +49,13 @@ def eval_expr(expr)
   end
 end
 
-exprs = program.apply(data).data
-pp exprs
-exprs.each { |e| p eval_expr(e) }
+res = program.apply(data)
+case res
+when DParse::Success
+  exprs = res.data
+  pp exprs
+  exprs.each { |e| p eval_expr(e) }
+when DParse::Failure
+  $stderr.puts res.pretty_message
+  exit 1
+end

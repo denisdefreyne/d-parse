@@ -36,8 +36,8 @@ module DParse
       DParse::Parsers::Opt.new(p)
     end
 
-    def rename_failure(p, message)
-      DParse::Parsers::RenameFailure.new(p, message)
+    def rename(p, message)
+      DParse::Parsers::Rename.new(p, message)
     end
 
     def repeat(p)

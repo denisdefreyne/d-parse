@@ -58,7 +58,7 @@ end
 
 * `fail` always fails.
 
-* `rename_failure(p, message)` sets the failure message of the parsing result of `p`, if it fails, to `message`.
+* `rename(p, name)` sets the name of the parser, so that parsing failures of `p` return a failure with message “expected <var>name</var>”.
 
 * `repeat(p)` tries to apply `p` as many times as possible, and never fails.
 
