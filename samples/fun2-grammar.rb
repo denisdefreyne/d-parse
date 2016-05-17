@@ -8,7 +8,7 @@ module Grammar
   DIGIT = char_in('0'..'9')
   LETTER = char_in('a'..'z')
   LPAREN = char('(')
-  RPARE = char(')')
+  RPAREN = char(')')
   COMMA = char(',')
   SEMICOLON = char(';')
   LBRACE = char('{')
@@ -81,7 +81,7 @@ module Grammar
       IDENTIFIER,
       LPAREN.ignore,
       FUNDEF_ARGLIST,
-      RPARE.ignore,
+      RPAREN.ignore,
       WHITESPACE1.ignore,
       LBRACE.ignore,
       WHITESPACE0.ignore,
@@ -120,7 +120,7 @@ module Grammar
       IDENTIFIER,
       LPAREN,
       ARGLIST,
-      RPARE,
+      RPAREN,
     ).map { |d| [:call, d[0]] + d[2] }
 
   STATEMENT =
