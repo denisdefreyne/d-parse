@@ -24,7 +24,7 @@ module DParse
 
       lines = [full_message, '', fancy_line, "\e[31m" + ' ' * @pos.column + '↑' + "\e[0m"]
 
-      lines.map { |l| "\e[34m[D*Parse]\e[0m #{l.strip}\n" }.join('')
+      lines.map { |l| "#{l.strip}\n" }.join('')
     end
 
     def to_s
