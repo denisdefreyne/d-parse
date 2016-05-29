@@ -15,7 +15,7 @@ module DParse
       end
 
       def expectation_message
-        'any character (not end of file)'
+        'any character except end of file'
       end
     end
   end
