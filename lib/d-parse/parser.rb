@@ -9,6 +9,10 @@ module DParse
       raise NotImplementedError
     end
 
+    def expectation_message
+      '?'
+    end
+
     def inspect
       raise NotImplementedError
     end

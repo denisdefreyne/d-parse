@@ -5,6 +5,7 @@ require_relative 'parsers/primitives/char_not'
 require_relative 'parsers/primitives/char_not_in'
 require_relative 'parsers/primitives/eof'
 require_relative 'parsers/primitives/fail'
+require_relative 'parsers/primitives/except'
 require_relative 'parsers/primitives/succeed'
 
 require_relative 'parsers/combinators/alt'

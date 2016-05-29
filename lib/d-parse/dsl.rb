@@ -28,6 +28,10 @@ module DParse
       DParse::Parsers::Intersperse.new(a, b)
     end
 
+    def except(a, b)
+      DParse::Parsers::Except.new(a, b)
+    end
+
     def lazy(&block)
       DParse::Parsers::Lazy.new(&block)
     end
@@ -50,6 +54,10 @@ module DParse
 
     def string(s)
       DParse::Parsers::String.new(s)
+    end
+
+    def fail
+      DParse::Parsers::Fail.new
     end
 
     def succeed
