@@ -14,4 +14,4 @@ before_install: gem install bundler
 cache: bundler
 sudo: false
 git:
-  depth: 1
+  depth: 10
