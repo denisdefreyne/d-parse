@@ -11,12 +11,16 @@ module DParse
         if char != @char && char
           Success.new(input, pos.advance(char))
         else
-          Failure.new(input, pos, message: "expected any character not equal to #{display(@char)}")
+          Failure.new(input, pos, origin: self)
         end
       end
 
       def inspect
         "char_not(#{@char.inspect})"
+      end
+
+      def expectation_message
+        "any character not equal to #{display(@char)}"
       end
     end
   end

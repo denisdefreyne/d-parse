@@ -6,12 +6,16 @@ module DParse
         if char
           Success.new(input, pos.advance(char))
         else
-          Failure.new(input, pos, message: 'expected any character (not end of file)')
+          Failure.new(input, pos, origin: self)
         end
       end
 
       def inspect
         'any()'
+      end
+
+      def expectation_message
+        'any character (not end of file)'
       end
     end
   end

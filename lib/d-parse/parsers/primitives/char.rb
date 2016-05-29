@@ -11,12 +11,16 @@ module DParse
         if char == @char
           Success.new(input, pos.advance(char))
         else
-          Failure.new(input, pos, message: "expected #{display @char}")
+          Failure.new(input, pos, origin: self)
         end
       end
 
       def inspect
         "char(#{@char.inspect})"
+      end
+
+      def expectation_message
+        display(@char)
       end
     end
   end

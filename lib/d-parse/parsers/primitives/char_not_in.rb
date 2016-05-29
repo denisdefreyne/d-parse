@@ -14,12 +14,16 @@ module DParse
         if char && @chars.all? { |c| char != c }
           Success.new(input, pos.advance(char))
         else
-          Failure.new(input, pos, message: "expected any character not in #{@chars.map { |c| display(c) }.join(', ')}")
+          Failure.new(input, pos, origin: self)
         end
       end
 
       def inspect
         "char_not_in(#{@chars.inspect})"
+      end
+
+      def expectation_message
+        "any character not in #{@chars.map { |c| display(c) }.join(', ')}"
       end
     end
   end

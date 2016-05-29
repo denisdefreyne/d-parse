@@ -12,12 +12,16 @@ module DParse
         when DParse::Success
           res
         when DParse::Failure
-          Failure.new(res.input, res.pos, message: "expected #{@name}")
+          Failure.new(res.input, res.pos, origin: self)
         end
       end
 
       def inspect
         "#{@name}()"
+      end
+
+      def expectation_message
+        @name
       end
     end
   end
