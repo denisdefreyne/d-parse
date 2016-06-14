@@ -10,6 +10,8 @@ module DParse
       @column = column
     end
 
+    FAR_BEHIND = new(index: -1, line: -1, column: -1)
+
     def advance(char)
       Position.new(
         index: @index + 1,

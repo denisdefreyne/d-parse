@@ -7,31 +7,25 @@ module DParse
       end
 
       def read(input, pos)
-        @parsers
-          .map { |parser| parser.read(input, pos) }
-          .reduce { |a, e| best(a, e) }
+        init = DParse::Failure.new(input, DParse::Position::FAR_BEHIND)
+        @parsers.reduce(init) do |old_res, parser|
+          case old_res
+          when DParse::Success
+            old_res
+          when DParse::Failure
+            new_res = parser.read(input, pos)
+            case new_res
+            when DParse::Success
+              new_res.with_best_failure(old_res)
+            when DParse::Failure
+              [old_res, new_res].max_by { |r| r.pos.index }
+            end
+          end
+        end
       end
 
       def inspect
         "alt(#{@parsers.map(&:inspect).join(',')})"
-      end
-
-      private
-
-      def best(a, b)
-        successes, failures = [a, b].partition { |pa| pa.is_a?(DParse::Success) }
-
-        best_success = successes.max_by { |r| r.pos.index }
-        best_failure = failures.max_by { |r| r.pos.index }
-
-        case successes.size
-        when 2
-          best_success
-        when 1
-          best_success.with_best_failure(best_failure)
-        when 0
-          best_failure
-        end
       end
     end
   end
