@@ -23,7 +23,7 @@ describe DParse::Parser do
           @result = result
         end
 
-        def read(input, pos)
+        def read(_input, _pos)
           @result
         end
 

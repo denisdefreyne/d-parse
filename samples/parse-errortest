@@ -31,8 +31,8 @@ module MyGrammar
   TESTB =
     seq(
       alt(
-        seq(string("a+a").capture),
-        seq(string("a").capture),
+        seq(string('a+a').capture),
+        seq(string('a').capture),
       ),
       eof,
     )

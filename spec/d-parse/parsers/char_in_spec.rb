@@ -1,5 +1,5 @@
 describe DParse::Parsers::CharIn do
-  let(:parser) { described_class.new(%w( a b )) }
+  let(:parser) { described_class.new(%w(a b)) }
 
   example { expect(parser).to parse('a').up_to(1) }
   example { expect(parser).to parse('b').up_to(1) }

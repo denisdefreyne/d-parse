@@ -13,7 +13,7 @@ describe DParse::Parsers::JSON do
   let(:expected_capture) do
     {
       'name' => 'Denis',
-      'favourite_animals' => %w( donkey giraffe ),
+      'favourite_animals' => %w(donkey giraffe),
       'nothing' => nil,
       'yup' => true,
       'nope' => false,

@@ -22,4 +22,4 @@ pair =
 
 parser = repeat(pair)
 
-p parser.apply("lad1d2d3lblc")
+p parser.apply('lad1d2d3lblc')

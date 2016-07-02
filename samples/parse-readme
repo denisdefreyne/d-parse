@@ -17,7 +17,7 @@ module Grammar
     ).first
 end
 
-res = Grammar::ROOT.apply("1,2,100,582048,07,09")
+res = Grammar::ROOT.apply('1,2,100,582048,07,09')
 case res
 when DParse::Success
   p res.data
