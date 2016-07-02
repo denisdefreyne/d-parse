@@ -5,6 +5,10 @@ module DParse
       read(input, DParse::Position.new)
     end
 
+    def match?(input)
+      apply(input).success?
+    end
+
     def read(_input, _pos)
       raise NotImplementedError
     end

@@ -19,8 +19,12 @@ describe DParse::Parser do
   context 'parser returning an array' do
     let(:klass) do
       Class.new(described_class) do
+        def initialize(result)
+          @result = result
+        end
+
         def read(input, pos)
-          DParse::Success.new(input, pos, data: [:a, :b, :c, :d, :e])
+          @result
         end
 
         def inspect
@@ -29,7 +33,10 @@ describe DParse::Parser do
       end
     end
 
-    let(:parser) { klass.new }
+    let(:result) { DParse::Success.new('…', pos, data: [:a, :b, :c, :d, :e]) }
+    let(:pos) { DParse::Position.new(index: 0, line: 0, column: 0) }
+
+    let(:parser) { klass.new(result) }
 
     describe '#first' do
       subject { parser.first }
@@ -49,6 +56,22 @@ describe DParse::Parser do
     describe '#select_odd' do
       subject { parser.select_odd }
       example { expect(subject).to parse('…').and_capture([:b, :d]) }
+    end
+
+    describe '#match?' do
+      subject { parser.match?('…') }
+
+      let(:pos) { DParse::Position.new(index: 0, line: 0, column: 0) }
+
+      context 'failure' do
+        let(:result) { DParse::Failure.new('…', pos) }
+        it { is_expected.to equal(false) }
+      end
+
+      context 'success' do
+        let(:result) { DParse::Success.new('…', pos) }
+        it { is_expected.to equal(true) }
+      end
     end
   end
 end
