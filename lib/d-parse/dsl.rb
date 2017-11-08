@@ -6,6 +6,10 @@ module DParse
       DParse::Parsers::Alt.new(*ps)
     end
 
+    def any(*ps)
+      DParse::Parsers::Any.new(*ps)
+    end
+
     def char(c)
       DParse::Parsers::Char.new(c)
     end
