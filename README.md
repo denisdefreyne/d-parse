@@ -46,13 +46,13 @@ end
 
 * `any` parses any character.
 
-* `char_in(cs)` parses a character that is in the `cs` collection.
-
-* `char_not_in(cs)` parses a character that is not in the `cs` collection.
+* `char(c)` parses the single character `c`.
 
 * `char_not(c)` parses a character that is not `c`.
 
-* `char(c)` parses the single character `c`.
+* `char_in(cs)` parses a character that is in the `cs` collection.
+
+* `char_not_in(cs)` parses a character that is not in the `cs` collection.
 
 * `eof` parses the end of file.
 
