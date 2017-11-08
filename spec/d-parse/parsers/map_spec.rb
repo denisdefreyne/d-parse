@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe DParse::Parsers::Map do
   let(:inner_parser) { double(:parser) }
   let(:parser) { described_class.new(inner_parser) { |data, res, orig_pos| [:mapped, data, res.class.to_s, orig_pos.index] } }

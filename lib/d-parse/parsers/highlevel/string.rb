@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DParse
   module Parsers
     class String < DParse::Parser

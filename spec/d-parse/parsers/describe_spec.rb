@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe DParse::Parsers::Describe do
   let(:identifier) do
     DParse::Parsers::Seq.new(

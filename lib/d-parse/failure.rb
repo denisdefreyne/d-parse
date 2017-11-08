@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DParse
   class Failure
     attr_reader :input

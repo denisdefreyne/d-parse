@@ -1,5 +1,11 @@
 # ----- CONFIGURED -----
 
+AllCops:
+  TargetRubyVersion: 2.3
+  DisplayCopNames: true
+  Exclude:
+    - 'scripts/*'
+
 FileName:
   Exclude:
     - 'lib/d-parse.rb'
@@ -13,13 +19,20 @@ Style/TrailingCommaInLiteral:
 
 # ----- DISABLED (opinionated) -----
 
-AsciiComments:
+# We should embrace UTF-8, not avoid it. Since the Encoding cop is enabled,
+# there’s no point in enforcing ASCII comments.
+Style/AsciiComments:
   Enabled: false
 
-Documentation:
+# It does not make sense to enforce everything to have documentation.
+Style/Documentation:
   Enabled: false
 
 Style/RaiseArgs:
+  Enabled: false
+
+# This doesn’t always make the code more clear.
+Style/GuardClause:
   Enabled: false
 
 
@@ -29,6 +42,9 @@ Style/RaiseArgs:
 # Cops for metrics are disabled because they should not cause tests to fail.
 
 Metrics/AbcSize:
+  Enabled: false
+
+Metrics/BlockLength:
   Enabled: false
 
 Metrics/BlockNesting:

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'parsers/primitives/any'
 require_relative 'parsers/primitives/bind'
 require_relative 'parsers/primitives/char'

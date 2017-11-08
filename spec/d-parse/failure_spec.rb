@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe DParse::Failure do
   let(:failure) { described_class.new("one\ntwo\nthree\nfour\nfive", position, origin: origin) }
 

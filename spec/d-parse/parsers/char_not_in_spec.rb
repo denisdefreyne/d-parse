@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 describe DParse::Parsers::CharNotIn do
-  let(:parser) { described_class.new(%w(a b)) }
+  let(:parser) { described_class.new(%w[a b]) }
 
   example { expect(parser).to parse('c').up_to(1) }
   example { expect(parser).to parse('ca').up_to(1) }

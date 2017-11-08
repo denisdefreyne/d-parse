@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 require 'd-parse'
 
@@ -22,6 +23,6 @@ case res
 when DParse::Success
   p res.data
 when DParse::Failure
-  $stderr.puts res.pretty_message
+  warn res.pretty_message
   exit 1
 end

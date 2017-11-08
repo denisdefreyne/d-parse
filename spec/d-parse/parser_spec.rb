@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe DParse::Parser do
   context 'bare parser' do
     let(:klass) do
@@ -33,7 +35,7 @@ describe DParse::Parser do
       end
     end
 
-    let(:result) { DParse::Success.new('…', pos, data: [:a, :b, :c, :d, :e]) }
+    let(:result) { DParse::Success.new('…', pos, data: %i[a b c d e]) }
     let(:pos) { DParse::Position.new(index: 0, line: 0, column: 0) }
 
     let(:parser) { klass.new(result) }
@@ -50,12 +52,12 @@ describe DParse::Parser do
 
     describe '#select_even' do
       subject { parser.select_even }
-      example { expect(subject).to parse('…').and_capture([:a, :c, :e]) }
+      example { expect(subject).to parse('…').and_capture(%i[a c e]) }
     end
 
     describe '#select_odd' do
       subject { parser.select_odd }
-      example { expect(subject).to parse('…').and_capture([:b, :d]) }
+      example { expect(subject).to parse('…').and_capture(%i[b d]) }
     end
 
     describe '#match?' do

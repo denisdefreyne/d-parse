@@ -1,12 +1,13 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 require 'd-parse'
 require 'pp'
 
-data = <<EOS
-add(1, mul(2, 3))
-mul(2,3)
-EOS
+data = <<~DATA
+  add(1, mul(2, 3))
+  mul(2,3)
+DATA
 
 include DParse::DSL
 
@@ -56,6 +57,6 @@ when DParse::Success
   pp exprs
   exprs.each { |e| p eval_expr(e) }
 when DParse::Failure
-  $stderr.puts res.pretty_message
+  warn res.pretty_message
   exit 1
 end

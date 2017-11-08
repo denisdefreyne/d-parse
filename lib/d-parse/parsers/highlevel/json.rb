@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DParse
   module Parsers
     class JSON < DParse::Parser
@@ -30,11 +32,11 @@ module DParse
             char('"').ignore,
             repeat(
               alt(
-                char_not_in(%w(" \\ )).capture,
+                char_not_in(%w[" \\ ]).capture,
                 seq(
                   char('\\').ignore,
                   alt(
-                    char_in(%w(" \\ / b f n r t)).capture,
+                    char_in(%w[" \\ / b f n r t]).capture,
                     seq(
                       char('u').capture,
                       seq(

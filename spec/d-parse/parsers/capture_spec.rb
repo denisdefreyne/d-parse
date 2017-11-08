@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe DParse::Parsers::Capturing do
   let(:any) { DParse::Parsers::Any.new }
   let(:parser) { described_class.new(any) }

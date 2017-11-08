@@ -1,6 +1,4 @@
 #!/usr/bin/env ruby
-# encoding: utf-8
-
 require 'fileutils'
 require 'octokit'
 
@@ -10,7 +8,7 @@ def run(*args)
   print 'Is this correct? [y/N] '
   res = gets
   unless res.strip.casecmp('y').zero?
-    $stderr.puts 'Answer was not Y; release aborted.'
+    warn 'Answer was not Y; release aborted.'
     exit 1
   end
 
@@ -20,55 +18,55 @@ def run(*args)
   print 'Continue? [y/N] '
   res = gets
   unless res.strip.casecmp('y').zero?
-    $stderr.puts 'Answer was not Y; release aborted.'
+    warn 'Answer was not Y; release aborted.'
     exit 1
   end
 end
 
-puts "=== Logging in to GitHub’s API…"
+puts '=== Logging in to GitHub’s API…'
 client = Octokit::Client.new(netrc: true)
 puts
 
-puts "=== Deleting old *.gem files…"
+puts '=== Deleting old *.gem files…'
 Dir['*.gem'].each do |fn|
   puts "  #{fn}…"
   FileUtils.rm_f(fn)
 end
 puts
 
-puts "=== Building new gem…"
+puts '=== Building new gem…'
 run('gem', 'build', 'd-parse.gemspec')
 puts
 
-puts "=== Reading version…"
+puts '=== Reading version…'
 require './lib/d-parse/version'
 puts "Version = #{DParse::VERSION}"
 puts
 
-puts "=== Verifying that release does not yet exist…"
+puts '=== Verifying that release does not yet exist…'
 releases = client.releases('ddfreyne/d-parse')
 release = releases.find { |r| r.tag_name == DParse::VERSION }
 if release
-  $stderr.puts 'Release already exists!'
-  $stderr.puts 'ABORTED!'
+  warn 'Release already exists!'
+  warn 'ABORTED!'
   exit 1
 end
 puts
 
-puts "=== Creating Git tag…"
+puts '=== Creating Git tag…'
 run('git', 'tag', '--sign', '--annotate', DParse::VERSION, '--message', "Version #{DParse::VERSION}")
 puts
 
-puts "=== Pushing Git data…"
+puts '=== Pushing Git data…'
 run('git', 'push', 'origin')
 run('git', 'push', 'origin', '--tags')
 puts
 
-puts "=== Pushing gem…"
+puts '=== Pushing gem…'
 run('gem', 'push', "d-parse-#{DParse::VERSION}.gem")
 puts
 
-puts "=== Reading release notes…"
+puts '=== Reading release notes…'
 release_notes =
   File.readlines('NEWS.md')
       .drop(4)
@@ -76,13 +74,13 @@ release_notes =
       .join
 puts
 
-puts "=== Creating release on GitHub…"
+puts '=== Creating release on GitHub…'
 sleep 3 # Give GitHub some time to detect the new tag
 is_prerelease = DParse::VERSION =~ /a|b|rc/ || DParse::VERSION =~ /^0/
 client.create_release(
   'ddfreyne/d-parse', DParse::VERSION,
   prerelease: !!is_prerelease,
-  body: release_notes
+  body: release_notes,
 )
 puts
 

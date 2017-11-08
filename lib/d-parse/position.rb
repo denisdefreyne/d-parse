@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DParse
   class Position
     attr_reader :index

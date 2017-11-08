@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe DParse::Parsers::Alt do
   let(:a) { DParse::Parsers::Char.new('a') }
   let(:b) { DParse::Parsers::Char.new('b') }

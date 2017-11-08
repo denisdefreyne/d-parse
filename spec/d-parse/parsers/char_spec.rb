@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe DParse::Parsers::Char do
   let(:parser) { described_class.new('a') }
 

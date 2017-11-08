@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe DParse::Parsers::Lazy do
   let(:char) { DParse::Parsers::Char.new('a') }
   let(:parser) { described_class.new { char } }

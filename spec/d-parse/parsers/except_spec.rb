@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe DParse::Parsers::Except do
   let(:parser) { described_class.new(initial_parser, bad_parser) }
 
