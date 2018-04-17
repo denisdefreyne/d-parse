@@ -94,8 +94,6 @@ Special modifiers:
 
 As mentioned above, this software is in an early state, and still lacks many features. It is not yet a fully functional parser combinator library, but it’ll hopefully get there.
 
-* Add more combinators (e.g. `repeat1`).
-
 * Add support for backtracking, so that `seq(repeat(any), string('donkey'))` can parse `superdonkey`.
 
 * Add failure descriptions to all parsers.
