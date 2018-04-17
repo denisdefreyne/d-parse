@@ -54,6 +54,14 @@ module DParse
       DParse::Parsers::Repeat.new(p)
     end
 
+    def repeat0(p)
+      repeat(p)
+    end
+
+    def repeat1(a)
+      seq(a, repeat0(a)).map { |d| [d[0]] + d[1] }
+    end
+
     def seq(*ps)
       DParse::Parsers::Seq.new(*ps)
     end

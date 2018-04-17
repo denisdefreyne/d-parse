@@ -62,6 +62,10 @@ end
 
 * `repeat(p)` tries to apply `p` as many times as possible, and never fails.
 
+* `repeat0(p)` is the same as `repeat(p)`.
+
+* `repeat1(p)` tries to apply `p` as many times as possible, but at least once.
+
 * `seq(p1, p2, …)` tries to apply the given parsers in sequence.
 
 * `succeed` always succeeds, without advancing the position.
