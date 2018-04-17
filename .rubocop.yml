@@ -13,8 +13,19 @@ FileName:
 Style/TrailingCommaInArguments:
   EnforcedStyleForMultiline: consistent_comma
 
-Style/TrailingCommaInLiteral:
+Style/TrailingCommaInArrayLiteral:
   EnforcedStyleForMultiline: consistent_comma
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+
+
+
+# ----- DISABLED (to enable later) -----
+
+Naming/UncommunicativeMethodParamName:
+  Enabled: false
+
 
 
 # ----- DISABLED (opinionated) -----
@@ -33,6 +44,11 @@ Style/RaiseArgs:
 
 # This doesn’t always make the code more clear.
 Style/GuardClause:
+  Enabled: false
+
+# Prefixing the memoized instance variable name with an underscore makes it
+# clear that it is not intended to be used directly.
+Naming/MemoizedInstanceVariableName:
   Enabled: false
 
 
