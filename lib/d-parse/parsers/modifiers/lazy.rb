@@ -5,6 +5,7 @@ module DParse
     class Lazy < DParse::Parser
       def initialize(&block)
         raise ArgumentError, 'Expected block' unless block_given?
+
         @block = block
       end
 

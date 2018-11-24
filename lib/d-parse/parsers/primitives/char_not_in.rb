@@ -4,9 +4,7 @@ module DParse
   module Parsers
     class CharNotIn < DParse::Parser
       def initialize(chars)
-        unless chars.all? { |char| char.length == 1 }
-          raise ArgumentError, 'Expected input to have one char'
-        end
+        raise ArgumentError, 'Expected input to have one char' unless chars.all? { |char| char.length == 1 }
 
         @chars = chars
       end

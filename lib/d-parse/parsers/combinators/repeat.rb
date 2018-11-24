@@ -15,9 +15,7 @@ module DParse
           new_res = @parser.read(input, prev_res.pos)
           best_failure = find_best_failure(best_failure, new_res)
 
-          if prev_res.pos.index == new_res.pos.index
-            return prev_res.with_best_failure(best_failure)
-          end
+          return prev_res.with_best_failure(best_failure) if prev_res.pos.index == new_res.pos.index
 
           case new_res
           when Success

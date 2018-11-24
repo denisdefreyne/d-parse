@@ -3,7 +3,7 @@
 
 require 'd-parse'
 
-include DParse::DSL
+include DParse::DSL # rubocop:disable Style/MixinUsage
 
 digit = chars(*('0'..'9')).capture
 letter = chars(*('a'..'z')).capture

@@ -9,7 +9,7 @@ data = <<~DATA
   mul(2,3)
 DATA
 
-include DParse::DSL
+include DParse::DSL # rubocop:disable Style/MixinUsage
 
 # primitives
 digit = describe(alt(*('0'..'9').map { |c| char(c) }), 'digit')
