@@ -4,7 +4,12 @@ module DParse
   module Parsers
     class String < DParse::Parser
       def self.new(string)
-        DParse::Parsers::Seq.new(*string.chars.map { |c| DParse::Parsers::Char.new(c) })
+        DParse::Parsers::Describe.new(
+          DParse::Parsers::Seq.new(
+            *string.chars.map { |c| DParse::Parsers::Char.new(c) },
+          ),
+          "string[#{string.inspect}]",
+        )
       end
 
       def initialize(*)

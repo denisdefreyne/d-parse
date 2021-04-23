@@ -16,6 +16,6 @@ describe DParse::Parsers::String do
   describe '#inspect' do
     subject { parser.inspect }
 
-    it { is_expected.to eql('seq(char("d"),char("o"),char("n"),char("k"),char("e"),char("y"))') }
+    it { is_expected.to eql('string["donkey"]()') }
   end
 end
