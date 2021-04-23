@@ -12,7 +12,8 @@ module DParse
         res = @parser.read(input, pos)
         case res
         when Success
-          Success.new(input, res.pos, data: @block.call(res.data, res, pos), best_failure: res.best_failure)
+          slice = StringSlice.new(string: input, from: pos, to: res.pos)
+          Success.new(input, res.pos, data: @block.call(res.data, slice), best_failure: res.best_failure)
         when Failure
           res
         end

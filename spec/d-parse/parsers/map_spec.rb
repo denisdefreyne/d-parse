@@ -2,10 +2,18 @@
 
 describe DParse::Parsers::Map do
   let(:inner_parser) { double(:parser) }
-  let(:parser) { described_class.new(inner_parser) { |data, res, orig_pos| [:mapped, data, res.class.to_s, orig_pos.index] } }
+  let(:parser) { described_class.new(inner_parser) { |data, slice| [:mapped, data, slice] } }
 
   describe '#apply / #read' do
-    subject { parser.apply('a') }
+    subject { parser.read('abcdefghijklmnopqrstuvwxyz', pos) }
+
+    let(:pos) do
+      DParse::Position.new(
+        index: 3,
+        line: 0,
+        column: 3,
+      )
+    end
 
     context 'success' do
       before do
@@ -32,7 +40,12 @@ describe DParse::Parsers::Map do
       end
 
       it 'maps data' do
-        expect(subject.data).to eql([:mapped, nil, 'DParse::Success', 0])
+        expect(subject.data[0]).to eql(:mapped)
+        expect(subject.data[1]).to be(nil)
+        expect(subject.data[2].string).to eq('abcdefghijklmnopqrstuvwxyz')
+        expect(subject.data[2].from.index).to eq(3)
+        expect(subject.data[2].to.index).to eq(10)
+        expect(subject.data[2].resolve).to eq('defghij')
       end
 
       it 'retains best_failure' do

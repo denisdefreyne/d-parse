@@ -4,7 +4,7 @@ module DParse
   module Parsers
     class Capturing < DParse::Parser
       def self.new(parser)
-        parser.map { |_data, result, old_pos| result.input[old_pos.index...result.pos.index] }
+        parser.map { |_data, slice| slice.resolve }
       end
 
       def initialize(*)
