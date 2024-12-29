@@ -4,6 +4,7 @@ module DParse
   module Parsers
     class Except < DParse::Parser
       def initialize(parser, bad_parser)
+        super()
         @parser = parser
         @bad_parser = bad_parser
       end

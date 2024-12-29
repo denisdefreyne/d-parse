@@ -6,6 +6,7 @@ module DParse
       attr_reader :parsers
 
       def initialize(*parsers)
+        super()
         @parsers = parsers
       end
 

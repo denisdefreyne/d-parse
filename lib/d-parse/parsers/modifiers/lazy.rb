@@ -6,6 +6,7 @@ module DParse
       def initialize(&block)
         raise ArgumentError, 'Expected block' unless block_given?
 
+        super()
         @block = block
       end
 

@@ -6,6 +6,7 @@ module DParse
       def initialize(char)
         raise ArgumentError, 'Expected input to have one char' unless char.length == 1
 
+        super()
         @char = char
       end
 

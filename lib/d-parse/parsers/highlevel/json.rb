@@ -232,6 +232,7 @@ module DParse
       end
 
       def initialize(*)
+        super()
         raise ArgumentError, "#{self.class} is not supposed to be initialized"
       end
     end

@@ -22,6 +22,7 @@ describe DParse::Parser do
     let(:klass) do
       Class.new(described_class) do
         def initialize(result)
+          super()
           @result = result
         end
 

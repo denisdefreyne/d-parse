@@ -4,6 +4,7 @@ module DParse
   module Parsers
     class Repeat < DParse::Parser
       def initialize(parser)
+        super()
         @parser = parser
       end
 
