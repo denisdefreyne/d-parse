@@ -15,7 +15,7 @@ module DParse
     end
 
     def message
-      @_message ||= 'expected ' + (@origin ? @origin.expectation_message : '?')
+      @_message ||= "expected #{@origin ? @origin.expectation_message : '?'}"
     end
 
     def full_message
@@ -24,9 +24,9 @@ module DParse
 
     def pretty_message
       line = (input.lines[@pos.line] || '').rstrip
-      fancy_line = line.chars.map.with_index { |c, i| i == @pos.column ? "\e[31m" + c + "\e[0m" : c }.join
+      fancy_line = line.chars.map.with_index { |c, i| i == @pos.column ? "\e[31m#{c}\e[0m" : c }.join
 
-      lines = [full_message, '', fancy_line, "\e[31m" + ' ' * @pos.column + '↑' + "\e[0m"]
+      lines = [full_message, '', fancy_line, "\e[31m#{' ' * @pos.column}↑\e[0m"]
 
       lines.join("\n")
     end

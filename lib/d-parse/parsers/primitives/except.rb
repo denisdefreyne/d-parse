@@ -29,7 +29,7 @@ module DParse
       end
 
       def expectation_message
-        @parser.expectation_message + ', not ' + @bad_parser.expectation_message
+        "#{@parser.expectation_message}, not #{@bad_parser.expectation_message}"
       end
     end
   end

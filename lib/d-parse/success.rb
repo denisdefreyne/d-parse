@@ -20,7 +20,7 @@ module DParse
     end
 
     def to_s
-      "Success(#{@pos}; #{@data}#{@best_failure ? '; best failure = ' + best_failure.inspect : ''})"
+      "Success(#{@pos}; #{@data}#{@best_failure ? "; best failure = #{best_failure.inspect}" : ''})"
     end
 
     def success?
