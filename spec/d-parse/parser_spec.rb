@@ -2,10 +2,7 @@
 
 describe DParse::Parser do
   context 'bare parser' do
-    let(:klass) do
-      Class.new(described_class) do
-      end
-    end
+    let(:klass) { Class.new(described_class) }
 
     let(:parser) { klass.new }
 
