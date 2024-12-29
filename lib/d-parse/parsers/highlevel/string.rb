@@ -1,19 +1,17 @@
 # frozen_string_literal: true
 
+require_relative "../modifiers/describe"
+
 module DParse
   module Parsers
-    class String < DParse::Parser
-      def self.new(string)
-        DParse::Parsers::Describe.new(
+    class String < DParse::Parsers::Describe
+      def initialize(string)
+        super(
           DParse::Parsers::Seq.new(
             *string.chars.map { |c| DParse::Parsers::Char.new(c) },
           ),
           "string[#{string.inspect}]",
         )
-      end
-
-      def initialize(*)
-        raise ArgumentError, "#{self.class} is not supposed to be initialized"
       end
     end
   end
