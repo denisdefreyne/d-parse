@@ -4,6 +4,7 @@ module DParse
   module Parsers
     class Except < DParse::Parser
       def initialize(parser, bad_parser)
+        super()
         @parser = parser
         @bad_parser = bad_parser
       end
@@ -28,7 +29,7 @@ module DParse
       end
 
       def expectation_message
-        @parser.expectation_message + ', not ' + @bad_parser.expectation_message
+        "#{@parser.expectation_message}, not #{@bad_parser.expectation_message}"
       end
     end
   end

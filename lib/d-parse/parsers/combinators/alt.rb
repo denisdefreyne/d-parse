@@ -4,6 +4,8 @@ module DParse
   module Parsers
     class Alt < DParse::Parser
       def initialize(*parsers)
+        super()
+
         # FIXME: ensure >0 parsers are provided
         @parsers = parsers
       end

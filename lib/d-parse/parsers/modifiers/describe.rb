@@ -4,6 +4,7 @@ module DParse
   module Parsers
     class Describe < DParse::Parser
       def initialize(parser, name)
+        super()
         @parser = parser
         @name = name
       end

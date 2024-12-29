@@ -2,7 +2,6 @@
 # frozen_string_literal: true
 
 require 'd-parse'
-require 'pp'
 
 json = DParse::Parsers::JSON.new
 

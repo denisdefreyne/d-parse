@@ -4,6 +4,7 @@ module DParse
   module Parsers
     class Map < DParse::Parser
       def initialize(parser, &block)
+        super()
         @parser = parser
         @block = block
       end
