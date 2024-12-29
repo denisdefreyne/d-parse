@@ -109,6 +109,10 @@ Style/GuardClause:
 Naming/MemoizedInstanceVariableName:
   Enabled: false
 
+Naming/FileName:
+  Exclude:
+    - 'lib/d-parse.rb'
+
 # ----- DISABLED (metrics) -----
 
 # Cops for metrics are disabled because they should not cause tests to fail.
