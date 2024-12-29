@@ -6,7 +6,8 @@
 
 _D★Parse_ is a parser combinator library for Ruby.
 
-**STATUS**: Experimental. Pre-alpha. Use at your own risk.
+> [!WARNING]
+> This software is no longer maintained and is unsupported. Consider using [a different solution for lexing/parsing](https://denisdefreyne.com/notes/choices-for-lexing-and-parsing-in-ruby/).
 
 ## Example
 
