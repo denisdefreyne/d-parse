@@ -1,16 +1,14 @@
 # frozen_string_literal: true
 
+require_relative "../highlevel/char_in"
+
 module DParse
   module Parsers
-    class WhitespaceChar < DParse::Parser
+    class WhitespaceChar < DParse::Parsers::CharIn
       WS = [' ', "\t"].freeze
 
-      def self.new
-        DParse::Parsers::CharIn.new(WS)
-      end
-
       def initialize(*)
-        raise ArgumentError, "#{self.class} is not supposed to be initialized"
+        super(WS)
       end
     end
   end
