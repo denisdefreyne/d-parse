@@ -59,7 +59,7 @@ end
 
 * `fail` always fails.
 
-* `describe(p, name)` sets the name of the parser, so that parsing failures of `p` return a failure with message “expected <var>name</var>”.
+* `describe(p, name)` sets the name of the parser, so that parsing failures of `p` return a failure with message “expected _name_”.
 
 * `repeat(p)` tries to apply `p` as many times as possible, and never fails.
 
