@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
+require_relative "../modifiers/map"
+
 module DParse
   module Parsers
-    class Intersperse < DParse::Parser
-      def self.new(a, b)
-        DParse::Parsers::Seq.new(
-          a,
-          DParse::Parsers::Repeat.new(
-            DParse::Parsers::Seq.new(b, a),
-          ).flatten.map { |d| d || [] },
-        ).map { |d| [d[0]] + d[1] }
-      end
-
-      def initialize(*)
-        raise ArgumentError, "#{self.class} is not supposed to be initialized"
+    class Intersperse < DParse::Parsers::Map
+      def initialize(a, b)
+        super(
+          DParse::Parsers::Seq.new(
+            a,
+            DParse::Parsers::Repeat.new(
+              DParse::Parsers::Seq.new(b, a),
+            ).flatten.map { |d| d || [] },
+          )
+        ) { |d| [d[0]] + d[1] }
       end
     end
   end
