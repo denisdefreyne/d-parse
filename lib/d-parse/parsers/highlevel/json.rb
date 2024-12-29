@@ -87,7 +87,7 @@ module DParse
                 end
               end
 
-            new_chars.join('')
+            new_chars.join
           end
 
         # Array
@@ -158,9 +158,9 @@ module DParse
 
             base =
               if digits_after_dot
-                [sign_char, digits_before_dot, '.', digits_after_dot].join('').to_f
+                [sign_char, digits_before_dot, '.', digits_after_dot].join.to_f
               else
-                [sign_char, digits_before_dot].join('').to_i(10)
+                [sign_char, digits_before_dot].join.to_i(10)
               end
 
             factor =
