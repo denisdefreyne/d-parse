@@ -1,14 +1,12 @@
 # frozen_string_literal: true
 
+require_relative "../combinators/alt"
+
 module DParse
   module Parsers
-    class CharIn < DParse::Parser
-      def self.new(chars)
-        DParse::Parsers::Alt.new(*chars.map { |c| DParse::Parsers::Char.new(c) })
-      end
-
-      def initialize(*)
-        raise ArgumentError, "#{self.class} is not supposed to be initialized"
+    class CharIn < ::DParse::Parsers::Alt
+      def initialize(chars)
+        super(*chars.map { |c| DParse::Parsers::Char.new(c) })
       end
     end
   end
