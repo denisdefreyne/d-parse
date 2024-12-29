@@ -2,9 +2,7 @@
 
 module DParse
   class Failure
-    attr_reader :input
-    attr_reader :pos
-    attr_reader :origin
+    attr_reader :input, :pos, :origin
 
     def initialize(input, pos, origin: nil)
       @input = input

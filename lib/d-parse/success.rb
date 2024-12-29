@@ -2,10 +2,7 @@
 
 module DParse
   class Success
-    attr_reader :input
-    attr_reader :pos
-    attr_reader :data
-    attr_reader :best_failure
+    attr_reader :input, :pos, :data, :best_failure
 
     def initialize(input, pos, data: nil, best_failure: nil)
       @input = input
