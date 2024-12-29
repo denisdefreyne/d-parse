@@ -23,4 +23,12 @@ Gem::Specification.new do |s|
   s.extra_rdoc_files = ['LICENSE', 'README.md', 'NEWS.md']
 
   s.required_ruby_version = '~> 3.0'
+
+  s.metadata = {
+    "bug_tracker_uri"   => "https://github.com/denisdefreyne/d-parse/issues",
+    "changelog_uri"     => "https://github.com/denisdefreyne/d-parse/blob/master/NEWS.md",
+    "documentation_uri" => "https://rubydoc.info/gems/d-parse",
+    "homepage_uri"      => s.homepage,
+    "source_code_uri"   => "https://github.com/denisdefreyne/d-parse",
+  }
 end
