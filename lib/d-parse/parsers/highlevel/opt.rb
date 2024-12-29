@@ -1,17 +1,15 @@
 # frozen_string_literal: true
 
+require_relative "../combinators/alt"
+
 module DParse
   module Parsers
-    class Opt < DParse::Parser
-      def self.new(parser)
-        DParse::Parsers::Alt.new(
+    class Opt < DParse::Parsers::Alt
+      def initialize(parser)
+        super(
           parser,
           DParse::Parsers::Succeed.new,
         )
-      end
-
-      def initialize(*)
-        raise ArgumentError, "#{self.class} is not supposed to be initialized"
       end
     end
   end
